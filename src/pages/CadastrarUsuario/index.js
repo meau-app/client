@@ -2,13 +2,16 @@ import React from "react";
 import {View, Text, StyleSheet, Button, Input, TouchableOpacity} from 'react-native';
 
 import { useNavigation } from "@react-navigation/native";
-export default function Login(){
+export default function CadastrarUsuario(){
 
   const navigation = useNavigation();
 
   return(
     <View style={styles.container}>
-      <Text> Tela de Login </Text>
+      <Text> Tela Cadastrar </Text>
+      <input
+        placeholder="Nome Completo"     
+      />
       <input
         placeholder="E-mail"
         keyboardType="email-address"      
@@ -18,8 +21,9 @@ export default function Login(){
         keyboardType="password"
         secureTextEntry={true}      
       />
-      <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('CadastrarUsuario')}>Cadastrar</TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('Login')}>Login</TouchableOpacity>
       <Button title= "Home" onPress={() => navigation.navigate('Home')}/>
+
     </View>
   )
 }
