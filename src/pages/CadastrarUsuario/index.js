@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import {View, Text, StyleSheet, Button, TextInput} from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import { async } from "@firebase/util";
+import { auth } from "../../firebaseConnection";
 
 
 
@@ -13,8 +14,8 @@ export default function CadastrarUsuario(){
 
 
 
-  async function cadastrar(){
-    await firebase.auth().createUserWithEmailAndPassword(email, password)
+  function cadastrar(){
+    auth.createUserWithEmailAndPassword(email, password)
     .then( (value) => {
       alert('Usuario criado: ' + value.user.email);
     })
@@ -27,7 +28,7 @@ export default function CadastrarUsuario(){
         alert('Email invalido');
         return;
       }else{
-        alert('Ops algo deu errado!');
+        alert('Email ja cadastrado!');
         return;
       }
     })
