@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, Button, TouchableOpacity} from 'react-native';
 
 import { useNavigation } from "@react-navigation/native";
 
-export default function Login(){
+export default function Login() {
   const navigation = useNavigation();
 
   function navigate(page) {
@@ -12,7 +12,7 @@ export default function Login(){
 
   return(
     <View style={styles.container}>
-      <Text> Tela de Login </Text>
+      <Text>Login</Text>
       <input
         placeholder="E-mail"
         keyboardType="email-address"
@@ -22,9 +22,8 @@ export default function Login(){
         keyboardType="password"
         secureTextEntry={true}
       />
-      
       <TouchableOpacity style={styles.button} onPress={navigate('RegisterUser')}>Cadastrar</TouchableOpacity>
-      <Button title= "Home" onPress={navigate('Home')}/>
+      <Button title="Home" onPress={navigate('Home')}/>
     </View>
   )
 }

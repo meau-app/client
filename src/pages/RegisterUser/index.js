@@ -1,13 +1,11 @@
 import React, {useState, useEffect} from "react";
 import {View, Text, StyleSheet, Button, TextInput} from 'react-native';
 import { useNavigation } from "@react-navigation/native";
-import { async } from "@firebase/util";
-import { auth } from "../../firebaseConnection";
 
+import { auth } from "../../service/database/firebase";
 
 
 export default function RegisterUser() {
-
   const navigation = useNavigation();
 
   const [email, setEmail] = useState('');

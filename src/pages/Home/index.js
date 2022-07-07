@@ -2,17 +2,21 @@ import React from "react";
 import {View, Text, StyleSheet, Button} from 'react-native';
 
 import { useNavigation } from "@react-navigation/native";
-export default function Home(){
 
+export default function Home()  {
   const navigation = useNavigation();
+
+  function navigate(page) {
+    navigation.navigate(page);
+  }
 
   return(
     <View style={styles.container}>
       <Text> Olá </Text>
-      <Button title= "Adotar" onPress={() => navigation.navigate('Adotar')}/>
-      <Button title= "Ajudar" onPress={() => navigation.navigate('Ajudar')}/>
-      <Button title= "Cadastrar Animal" onPress={() => navigation.navigate('CadastrarAnimal')}/>
-      <Button title= "Login" onPress={() => navigation.navigate('Login')}/>
+      <Button title= "Adotar" onPress={navigate('Adopt')}/>
+      <Button title= "Ajudar" onPress={navigate('Help')}/>
+      <Button title= "Cadastrar Animal" onPress={navigate('RegisterAnimal')}/>
+      <Button title= "Login" onPress={navigate('Login')}/>
     </View>
   )
 }
