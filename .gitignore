@@ -1,4 +1,4 @@
-# 
+#
 # Folders
 #
 node_modules/
@@ -6,12 +6,12 @@ node_modules/
 dist/
 web-build/
 
-# 
+#
 #
 #
 npm-debug.*
 
-# 
+#
 *.jks
 *.p8
 *.p12
@@ -27,3 +27,8 @@ npm-debug.*
 # Log files
 #
 *.log
+
+#
+# Lock files
+#
+*.lock
