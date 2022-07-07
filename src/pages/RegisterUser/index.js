@@ -6,9 +6,10 @@ import { auth } from "../../firebaseConnection";
 
 
 
-export default function CadastrarUsuario(){
+export default function RegisterUser() {
 
   const navigation = useNavigation();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -16,25 +17,23 @@ export default function CadastrarUsuario(){
 
   function cadastrar(){
     auth.createUserWithEmailAndPassword(email, password)
-    .then( (value) => {
-      alert('Usuario criado: ' + value.user.email);
-    })
-    .catch( (error) => {
-      if(error.code === 'auth/weak-password'){
-        alert('Sua senha deve ter pelo menos 6 caracteres');
-        return;
-      }
-      if(error.code === 'auth/invalid-email'){
-        alert('Email invalido');
-        return;
-      }else{
-        alert('Email ja cadastrado!');
-        return;
-      }
-    })
-
-    setEmail('');
-    setPassword('');
+        .then( (value) => {
+            alert('Usuário criado: ' + value.user.email);
+            navigation.navigate('Login');
+        })
+        .catch((error) => {
+          if(error.code === 'auth/weak-password'){
+            alert('Sua senha deve ter pelo menos 6 caracteres');
+            return;
+          }
+          if(error.code === 'auth/invalid-email'){
+            alert('Email invalido');
+            return;
+          }else{
+            alert('Email ja cadastrado!');
+            return;
+          }
+        })
   }
 
   return(

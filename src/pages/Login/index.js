@@ -1,25 +1,30 @@
 import React from "react";
-import {View, Text, StyleSheet, Button, Input, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, Button, TouchableOpacity} from 'react-native';
 
 import { useNavigation } from "@react-navigation/native";
-export default function Login(){
 
+export default function Login(){
   const navigation = useNavigation();
+
+  function navigate(page) {
+    navigation.navigate(page);
+  }
 
   return(
     <View style={styles.container}>
       <Text> Tela de Login </Text>
       <input
         placeholder="E-mail"
-        keyboardType="email-address"      
+        keyboardType="email-address"
       />
       <input
         placeholder="Senha"
         keyboardType="password"
-        secureTextEntry={true}      
+        secureTextEntry={true}
       />
-      <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate('CadastrarUsuario')}>Cadastrar</TouchableOpacity>
-      <Button title= "Home" onPress={() => navigation.navigate('Home')}/>
+      
+      <TouchableOpacity style={styles.button} onPress={navigate('RegisterUser')}>Cadastrar</TouchableOpacity>
+      <Button title= "Home" onPress={navigate('Home')}/>
     </View>
   )
 }

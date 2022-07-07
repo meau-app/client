@@ -2,7 +2,8 @@ import React from "react";
 import {View, Text, StyleSheet, Button} from 'react-native';
 
 import { useNavigation } from "@react-navigation/native";
-export default function CadastrarAnimal(){
+
+export default function RegisterAnimal() {
 
   const navigation = useNavigation();
 
