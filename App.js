@@ -6,8 +6,8 @@ import Help from "./src/pages/Help";
 import Home from "./src/pages/Home";
 import Adopt from "./src/pages/Adopt";
 import Login from "./src/pages/Login";
-import RegisterAnimal from "./src/pages/CadastrarAnimal";
-import CadastrarUsuario from "./src/pages/CadastrarUsuario";
+import RegisterAnimal from "./src/pages/RegisterAnimal";
+import CadastrarUsuario from "./src/pages/RegisterUser";
 
 const Stack = createNativeStackNavigator();
 
