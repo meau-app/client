@@ -12,11 +12,11 @@ export default function Home()  {
 
   return(
     <View style={styles.container}>
-      <Text> Olá </Text>
-      <Button title= "Adotar" onPress={navigate('Adopt')}/>
-      <Button title= "Ajudar" onPress={navigate('Help')}/>
-      <Button title= "Cadastrar Animal" onPress={navigate('RegisterAnimal')}/>
-      <Button title= "Login" onPress={navigate('Login')}/>
+      <Text>Meau</Text>
+      <Button title="Adotar" onPress={navigate('Adopt')}/>
+      <Button title="Ajudar" onPress={navigate('Help')}/>
+      <Button title="Cadastrar Animal" onPress={navigate('RegisterAnimal')}/>
+      <Button title="Login" onPress={navigate('Login')}/>
     </View>
   )
 }

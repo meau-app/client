@@ -8,7 +8,7 @@ export default function RegisterAnimal() {
 
   return(
     <View style={styles.container}>
-      <Text> Tela Cadastrar Animal </Text>
+      <Text>Tela Cadastrar Animal</Text>
     </View>
   )
 }

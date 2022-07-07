@@ -15,12 +15,12 @@ export default function App(){
   return(
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name = "Home" component={Home} />
-        <Stack.Screen name = "Adotar" component={Adopt} />
-        <Stack.Screen name = "Ajudar" component={Help} />
-        <Stack.Screen name = "Login" component={Login} />
-        <Stack.Screen name = "CadastrarUsuario" component={RegisterUser} />
-        <Stack.Screen name = "CadastrarAnimal" component={RegisterAnimal} />
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Adotar" component={Adopt} />
+        <Stack.Screen name="Ajudar" component={Help} />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="CadastrarUsuario" component={RegisterUser} />
+        <Stack.Screen name="CadastrarAnimal" component={RegisterAnimal} />
       </Stack.Navigator>
     </NavigationContainer>
   )

@@ -11,25 +11,19 @@ export default function RegisterUser() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-
-
-  function cadastrar(){
+  function register() {
     auth.createUserWithEmailAndPassword(email, password)
-        .then( (value) => {
+        .then(value => {
             alert('Usuário criado: ' + value.user.email);
             navigation.navigate('Login');
         })
-        .catch((error) => {
-          if(error.code === 'auth/weak-password'){
+        .catch(error => {
+          if (error.code === 'auth/weak-password')  {
             alert('Sua senha deve ter pelo menos 6 caracteres');
-            return;
-          }
-          if(error.code === 'auth/invalid-email'){
+          } else if (error.code === 'auth/invalid-email') {
             alert('Email invalido');
-            return;
-          }else{
+          } else {
             alert('Email ja cadastrado!');
-            return;
           }
         })
   }
@@ -38,26 +32,24 @@ export default function RegisterUser() {
     <View style={styles.container}>
       <Text style={styles.texto}>Email</Text>
       <TextInput
-      style={styles.input}
-      underlineColorAndroid="transparent"
-      onChangeText={(texto) => setEmail(texto) }
-      value={email}
+        style={styles.input}
+        underlineColorAndroid="transparent"
+        onChangeText={setEmail}
+        value={email}
       />
 
       <Text style={styles.texto}>Senha</Text>
       <TextInput
-      style={styles.input}
-      underlineColorAndroid="transparent"
-      onChangeText={(texto) => setPassword(texto) }
-      value={password}
+        style={styles.input}
+        underlineColorAndroid="transparent"
+        onChangeText={setPassword}
+        value={password}
       />
 
       <Button
-      title="Cadastrar"
-      onPress={cadastrar}
+        title="Cadastrar"
+        onPress={register}
       />
-
-
     </View>
   );
 }
