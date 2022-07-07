@@ -15,12 +15,14 @@ export default function Login() {
       <Text>Login</Text>
       <input
         placeholder="E-mail"
+        keyboardType="email-address"
       />
       <input
         placeholder="Senha"
+        keyboardType="password"
       />
-      <TouchableOpacity style={styles.button} onPress={navigate('RegisterUser')}>Cadastrar</TouchableOpacity>
-      <Button title="Home" onPress={navigate('Home')}/>
+      <TouchableOpacity style={styles.button} onPress={()=>navigate('RegisterUser')}>Cadastrar</TouchableOpacity>
+      <Button title="Home" onPress={()=>navigate('Home')}/>
     </View>
   )
 }

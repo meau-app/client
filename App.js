@@ -16,11 +16,11 @@ export default function App(){
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Adotar" component={Adopt} />
-        <Stack.Screen name="Ajudar" component={Help} />
+        <Stack.Screen name="Adopt" component={Adopt} />
+        <Stack.Screen name="Help" component={Help} />
         <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="CadastrarUsuario" component={RegisterUser} />
-        <Stack.Screen name="CadastrarAnimal" component={RegisterAnimal} />
+        <Stack.Screen name="RegisterUser" component={RegisterUser} />
+        <Stack.Screen name="RegisterAnimal" component={RegisterAnimal} />
       </Stack.Navigator>
     </NavigationContainer>
   )
