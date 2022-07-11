@@ -1,7 +1,9 @@
 import React from "react";
 import {View, Text, StyleSheet, Button, TouchableOpacity} from 'react-native';
-
 import { useNavigation } from "@react-navigation/native";
+
+import { auth } from "../../service/database/firebase";
+import { TextInput } from "react-native-web";
 
 export default function Login() {
   const navigation = useNavigation();
@@ -10,18 +12,38 @@ export default function Login() {
     navigation.navigate(page);
   }
 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  function login() {
+    auth.signInWithEmailAndPassword(email, password)
+        .then((credential) => {
+            console.log("credential is " + credential + " for user " + credential.user);
+        })
+        .catch(error => {
+            const code = error.code;
+            const message = error.message;
+
+            console.log("login failed with code " + code + " and reason " + message);
+        });
+  }
+
   return(
     <View style={styles.container}>
-      <Text>Login</Text>
-      <input
-        placeholder="E-mail"
-        keyboardType="email-address"
+      <Text>Email</Text>
+      <TextInput
+        onChangeText={setEmail}
+        value={email}
       />
-      <input
-        placeholder="Senha"
-        keyboardType="password"
+
+      <Text>Senha</Text>
+      <TextInput
+        onChangeText={setPassword}
+        value={password}
       />
-      <TouchableOpacity style={styles.button} onPress={()=>navigate('RegisterUser')}>Cadastrar</TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={()=>login()}>
+        Login
+      </TouchableOpacity>
       <Button title="Home" onPress={()=>navigate('Home')}/>
     </View>
   )
