@@ -1,5 +1,5 @@
-import {useState} from "react";
-import {View, Text, StyleSheet, Button, TextInput} from 'react-native';
+import { useState } from "react";
+import { View, Text, StyleSheet, Button, TextInput } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 
 import { auth } from "../../service/database/firebase";
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     padding: 10,
     borderWidth: 1,
-    borderColor: '#121212',
+    borderColor: '#ccc',
     height: 45,
     fontSize: 17
   }
