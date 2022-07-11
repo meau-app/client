@@ -12,17 +12,11 @@ export default function Login() {
 
   function login() {
     auth.signInWithEmailAndPassword(email, password)
-        .then(credential => {
+        .then(async credential => {
             const user = credential.user.email;
-            const token = credential.user.getIdToken(true);
-            /*auth.currentUser.getIdToken(true)
-                .then(token => {
-
-                })*/
+            const token = await credential.user.getIdToken(true)
 
             alert("credential is " + token + " for user " + user);
-
-
         })
         .catch(error => {
             const code = error.code;
