@@ -11,7 +11,7 @@ import RegisterUser from "./src/pages/RegisterUser";
 
 const Stack = createNativeStackNavigator();
 
-export default function App(){
+export default function App() {
   return(
     <NavigationContainer>
       <Stack.Navigator>
