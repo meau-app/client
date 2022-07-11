@@ -54,11 +54,11 @@ export default function Login() {
 const styles = StyleSheet.create({
   container:{
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
     margin: 10,
   },
   button: {
-    alignItems: "center",
+    alignItems: 'center',
     padding:10
   },
   input:{
