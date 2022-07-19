@@ -1,9 +1,9 @@
-import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { auth, firebaseConfig, app } from '../../service/database/firebase';
-import { getFirestore, setDoc, doc, } from 'firebase/firestore';
-import * as SecureStore from 'expo-secure-store';
+import React from "react";
+import { View, Text, StyleSheet, Button } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { auth, firebaseConfig, app } from "../../service/database/firebase";
+import { getFirestore, setDoc, doc, } from "firebase/firestore";
+import * as SecureStore from "expo-secure-store";
 
 export default function Adopt() {
   const navigation = useNavigation();

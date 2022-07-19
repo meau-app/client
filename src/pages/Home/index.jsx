@@ -1,7 +1,7 @@
-import React from 'react';
-import { View, Text, StyleSheet, Button, useWindowDimensions } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import * as SecureStore from 'expo-secure-store';
+import React from "react";
+import { View, Text, StyleSheet, Button, useWindowDimensions } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import * as SecureStore from "expo-secure-store";
 
 
 export default function Home() {
