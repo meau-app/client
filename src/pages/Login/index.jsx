@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState } from 'react';
 import { View, Text, StyleSheet, Button, TextInput } from 'react-native';
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation } from '@react-navigation/native';
 import * as SecureStore from 'expo-secure-store';
-import { auth } from "../../service/database/firebase";
+import { auth } from '../../service/database/firebase';
 
 export default function Login() {
   const navigation = useNavigation();

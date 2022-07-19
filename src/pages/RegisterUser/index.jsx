@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState } from 'react';
 import { View, Text, StyleSheet, Button, TextInput } from 'react-native';
-import { useNavigation } from "@react-navigation/native";
-import { auth, firebaseConfig, app } from "../../service/database/firebase";
+import { useNavigation } from '@react-navigation/native';
+import { auth, firebaseConfig, app } from '../../service/database/firebase';
 import { getFirestore, setDoc, doc, } from 'firebase/firestore';
 import * as SecureStore from 'expo-secure-store';
 

@@ -1,6 +1,6 @@
-import React from "react";
-import { View, Text, StyleSheet, Button } from 'react-native';
-import { useNavigation } from "@react-navigation/native";
+import React from 'react';
+import { View, Text, StyleSheet, Button, useWindowDimensions } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import * as SecureStore from 'expo-secure-store';
 
 

@@ -1,12 +1,12 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import Help from "./src/pages/Help";
-import Home from "./src/pages/Home";
-import Adopt from "./src/pages/Adopt";
-import Login from "./src/pages/Login";
-import RegisterAnimal from "./src/pages/RegisterAnimal";
-import RegisterUser from "./src/pages/RegisterUser";
+import Help from './src/pages/Help';
+import Home from './src/pages/Home';
+import Adopt from './src/pages/Adopt';
+import Login from './src/pages/Login';
+import RegisterAnimal from './src/pages/RegisterAnimal';
+import RegisterUser from './src/pages/RegisterUser';
 
 const Stack = createNativeStackNavigator();
 
