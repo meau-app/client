@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Text, StyleSheet, Button, TextInput } from "react-native";
+import { ScrollView, Text, StyleSheet, Button, TextInput } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import * as SecureStore from "expo-secure-store";
 import { auth } from "../../service/database/firebase";
@@ -27,8 +27,7 @@ export default function Login() {
   }
 
   return (
-    <View style={styles.container}>
-
+    <ScrollView contentContainerStyle={styles.container}>
       <Text>Email</Text>
       <TextInput
         style={styles.input}
@@ -40,6 +39,7 @@ export default function Login() {
       <TextInput
         style={styles.input}
         onChangeText={setPassword}
+        secureTextEntry="true"
         value={password}
       />
       <Button
@@ -47,8 +47,7 @@ export default function Login() {
         title="Login"
         onPress={login}
       />
-
-    </View>
+    </ScrollView>
   )
 }
 

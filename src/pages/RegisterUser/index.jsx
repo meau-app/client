@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Text, StyleSheet, Button, TextInput } from "react-native";
+import { ScrollView, Text, StyleSheet, Button, TextInput } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { auth, firebaseConfig, app } from "../../service/database/firebase";
 import { getFirestore, setDoc, doc, } from "firebase/firestore";
@@ -8,7 +8,6 @@ import * as SecureStore from "expo-secure-store";
 const firestore = getFirestore();
 
 export default function RegisterUser() {
-
   const navigation = useNavigation();
 
   const [email, setEmail] = useState('');
@@ -17,6 +16,8 @@ export default function RegisterUser() {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [phone, setPhone] = useState('');
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
   const [address, setAddress] = useState('');
 
   function register() {
@@ -30,6 +31,8 @@ export default function RegisterUser() {
           name: name,
           phone: phone,
           username: username,
+          city: city,
+          state: state,
           address: address,
         });
         navigation.navigate('Adopt');
@@ -38,15 +41,15 @@ export default function RegisterUser() {
         if (error.code === 'auth/weak-password') {
           alert('Sua senha deve ter pelo menos 6 caracteres');
         } else if (error.code === 'auth/invalid-email') {
-          alert('Email invalido');
+          alert('Email inválido');
         } else {
-          alert('Email ja cadastrado! ' + error.code);
+          alert('Email já cadastrado! ' + error.code);
         }
       })
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text>Nome</Text>
       <TextInput
         style={styles.input}
@@ -92,6 +95,7 @@ export default function RegisterUser() {
       <Text>Senha</Text>
       <TextInput
         style={styles.input}
+        secureTextEntry="true"
         onChangeText={setPassword}
         value={password}
       />
@@ -100,7 +104,7 @@ export default function RegisterUser() {
         title="Cadastrar"
         onPress={register}
       />
-    </View>
+    </ScrollView>
   );
 }
 
