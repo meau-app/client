@@ -39,7 +39,7 @@ export default function Login() {
       <TextInput
         style={styles.input}
         onChangeText={setPassword}
-        secureTextEntry="true"
+        secureTextEntry={true}
         value={password}
       />
       <Button

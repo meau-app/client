@@ -95,7 +95,7 @@ export default function RegisterUser() {
       <Text>Senha</Text>
       <TextInput
         style={styles.input}
-        secureTextEntry="true"
+        secureTextEntry={true}
         onChangeText={setPassword}
         value={password}
       />
