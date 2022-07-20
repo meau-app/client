@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { View, Text, StyleSheet, Button, TextInput } from 'react-native';
+import { ScrollView, Text, StyleSheet, Button, TextInput } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-
+import * as SecureStore from "expo-secure-store";
 import { auth } from "../../service/database/firebase";
 
 export default function Login() {
@@ -12,22 +12,22 @@ export default function Login() {
 
   function login() {
     auth.signInWithEmailAndPassword(email, password)
-        .then(async credential => {
-            const user = credential.user.email;
-            const token = await credential.user.getIdToken(true)
+      .then(async credential => {
+        const user = credential.user.email;
+        const token = await credential.user.getIdToken(true);
+        SecureStore.setItemAsync('secure_token', token);
+        navigation.navigate('Adopt');
+      })
+      .catch(error => {
+        const code = error.code;
+        const message = error.message;
 
-            alert("credential is " + token + " for user " + user);
-        })
-        .catch(error => {
-            const code = error.code;
-            const message = error.message;
-
-            alert("login failed with code " + code + " and reason " + message);
-        });
+        alert("login failed with code " + code + " and reason " + message);
+      });
   }
 
-  return(
-    <View style={styles.container}>
+  return (
+    <ScrollView contentContainerStyle={styles.container}>
       <Text>Email</Text>
       <TextInput
         style={styles.input}
@@ -39,29 +39,29 @@ export default function Login() {
       <TextInput
         style={styles.input}
         onChangeText={setPassword}
+        secureTextEntry={true}
         value={password}
       />
-
       <Button
         style={styles.button}
         title="Login"
         onPress={login}
       />
-    </View>
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
-  container:{
+  container: {
     flex: 1,
     justifyContent: 'center',
     margin: 10,
   },
   button: {
     alignItems: 'center',
-    padding:10
+    padding: 10
   },
-  input:{
+  input: {
     marginBottom: 10,
     padding: 10,
     borderWidth: 1,
