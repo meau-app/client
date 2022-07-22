@@ -1,61 +1,50 @@
-import { useState } from 'react';
-import {
-  ScrollView,
-  Text,
-  StyleSheet,
-  Button,
-  TextInput,
-  Alert,
-} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import * as SecureStore from 'expo-secure-store';
-import { auth } from '../../service/database/firebase';
+import { useState } from 'react';
+import { ScrollView, Alert } from 'react-native';
+import { Button, TextInput } from 'react-native-paper';
+
+import Authentication from '../../service/authentication/authenticate';
 
 import styles from './styles';
 
 export default function Login() {
   const navigation = useNavigation();
 
+  function to(page: string): void {
+    navigation.navigate(page);
+  }
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   function login() {
-    auth
-      .signInWithEmailAndPassword(email, password)
-      .then(async (credential) => {
-        const user = credential.user?.email;
-        const token = await credential.user?.getIdToken(true);
-
-        if (token) {
-          SecureStore.setItemAsync('secure_token', token);
-          navigation.navigate('Home');
-        } else {
-          // TODO: handle error
-        }
+    Authentication.authenticate(email, password)
+      .then(value => {
+        to('Home');
       })
-      .catch((error) => {
-        const code = error.code;
-        const message = error.message;
-
-        Alert.alert(
-          'login failed with code ' + code + ' and reason ' + message
-        );
+      .catch(error => {
+        Alert.alert('Email ou senha inválidos');
       });
   }
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text>Email</Text>
-      <TextInput style={styles.input} onChangeText={setEmail} value={email} />
-
-      <Text>Senha</Text>
       <TextInput
-        style={styles.input}
+        mode="outlined"
+        placeholder="Email"
+        onChangeText={setEmail}
+        value={email}
+      />
+
+      <TextInput
+        mode="outlined"
+        placeholder="Senha"
         onChangeText={setPassword}
-        secureTextEntry={true}
         value={password}
       />
-      <Button style={styles.button} title="Login" onPress={login} />
+      <Button style={styles.buttonMargin} mode="contained" onPress={login}>
+        Login
+      </Button>
     </ScrollView>
   );
 }

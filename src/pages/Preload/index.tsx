@@ -1,33 +1,38 @@
-import React from 'react';
-import { View, Text, Button, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import * as SecureStore from 'expo-secure-store';
+import React from 'react';
+import { View } from 'react-native';
+import { Text, Button } from 'react-native-paper';
+
+import Authentication from '../../service/authentication/authenticate';
 
 import styles from './styles';
 
 export default function Preload() {
   const navigation = useNavigation();
 
-  function go(page: string) {
+  function to(page: string): void {
     navigation.navigate(page);
   }
 
-  function isUserSignedIn() {
-    SecureStore.getItemAsync('secure_token').then((value) => {
-      if (value != '' && value != null) {
-        Alert.alert(value);
-        navigation.navigate('Home');
-      }
-    });
-  }
-
-  isUserSignedIn();
+  Authentication.check().then(() => {
+    to('Home');
+  });
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Meau</Text>
-      <Button title="Login" onPress={() => go('Login')} />
-      <Button title="Cadastrar" onPress={() => go('RegisterUser')} />
+      <Text style={styles.title}>MEAU</Text>
+      <View style={styles.buttonList}>
+        <Button mode="contained" onPress={() => to('Login')}>
+          Login
+        </Button>
+        <Button
+          style={styles.buttonMargin}
+          mode="contained"
+          onPress={() => to('RegisterUser')}
+        >
+          Cadastrar
+        </Button>
+      </View>
     </View>
   );
 }

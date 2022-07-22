@@ -6,18 +6,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     margin: 10,
   },
-  button: {
-    alignItems: 'center',
-    padding: 10,
-  },
-  input: {
-    marginBottom: 10,
-    padding: 10,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    height: 45,
-    fontSize: 17,
-  },
-}); 
+  buttonMargin: {
+    marginTop: 10
+  }
+});
 
 export default styles;
