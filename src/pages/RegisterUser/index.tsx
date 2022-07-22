@@ -1,9 +1,10 @@
-import { useState } from "react";
-import { ScrollView, Text, StyleSheet, Button, TextInput } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { auth, firebaseConfig, app } from "../../service/database/firebase";
-import { getFirestore, setDoc, doc, } from "firebase/firestore";
-import * as SecureStore from "expo-secure-store";
+import { useState } from 'react';
+import { ScrollView, Text, Button, TextInput, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { auth } from '../../service/database/firebase';
+import { getFirestore, setDoc, doc } from 'firebase/firestore';
+import * as SecureStore from 'expo-secure-store';
+import styles from './styles';
 
 const firestore = getFirestore();
 
@@ -21,12 +22,15 @@ export default function RegisterUser() {
   const [address, setAddress] = useState('');
 
   function register() {
-    auth.createUserWithEmailAndPassword(email, password)
-      .then(value => {
-        alert('Usuário criado: ' + value.user.email);
-        value.user.getIdToken().then((value) => SecureStore.setItemAsync('secure_token', value));
-        setDoc(doc(firestore, "users", email), {
-          userId: value.user.uid,
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((value) => {
+        Alert.alert('Usuário criado: ' + value.user?.email);
+        value.user
+          ?.getIdToken()
+          .then((value) => SecureStore.setItemAsync('secure_token', value));
+        setDoc(doc(firestore, 'users', email), {
+          userId: value.user?.uid,
           age: birthdate,
           name: name,
           phone: phone,
@@ -35,27 +39,24 @@ export default function RegisterUser() {
           state: state,
           address: address,
         });
+
         navigation.navigate('Adopt');
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.code === 'auth/weak-password') {
-          alert('Sua senha deve ter pelo menos 6 caracteres');
+          Alert.alert('Sua senha deve ter pelo menos 6 caracteres');
         } else if (error.code === 'auth/invalid-email') {
-          alert('Email inválido');
+          Alert.alert('Email inválido');
         } else {
-          alert('Email já cadastrado! ' + error.code);
+          Alert.alert('Email já cadastrado! ' + error.code);
         }
-      })
+      });
   }
 
   return (
     <ScrollView style={styles.container}>
       <Text>Nome</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={setName}
-        value={name}
-      />
+      <TextInput style={styles.input} onChangeText={setName} value={name} />
 
       <Text>Data de nascimento</Text>
       <TextInput
@@ -72,18 +73,10 @@ export default function RegisterUser() {
       />
 
       <Text>Telefone</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={setPhone}
-        value={phone}
-      />
+      <TextInput style={styles.input} onChangeText={setPhone} value={phone} />
 
       <Text>Email</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={setEmail}
-        value={email}
-      />
+      <TextInput style={styles.input} onChangeText={setEmail} value={email} />
 
       <Text>Nome de usuário</Text>
       <TextInput
@@ -99,29 +92,7 @@ export default function RegisterUser() {
         onChangeText={setPassword}
         value={password}
       />
-      <Button
-        style={styles.button}
-        title="Cadastrar"
-        onPress={register}
-      />
+      <Button style={styles.button} title="Cadastrar" onPress={register} />
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    margin: 10,
-  },
-  texto: {
-    fontSize: 20,
-  },
-  input: {
-    marginBottom: 10,
-    padding: 10,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    height: 45,
-    fontSize: 17
-  }
-});
