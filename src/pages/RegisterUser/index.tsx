@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { ScrollView, Text, Button, TextInput, Alert } from 'react-native';
+import { ScrollView, Alert } from 'react-native';
+import { Text, Button, TextInput } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { auth } from '../../service/database/firebase';
 import { getFirestore, setDoc, doc } from 'firebase/firestore';
@@ -10,6 +11,10 @@ const firestore = getFirestore();
 
 export default function RegisterUser() {
   const navigation = useNavigation();
+
+  function to(page: string): void {
+    navigation.navigate(page);
+  }
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -24,13 +29,14 @@ export default function RegisterUser() {
   function register() {
     auth
       .createUserWithEmailAndPassword(email, password)
-      .then((value) => {
-        Alert.alert('Usuário criado: ' + value.user?.email);
-        value.user
-          ?.getIdToken()
-          .then((value) => SecureStore.setItemAsync('secure_token', value));
+      .then(async value => {
+        let token = await value.user?.getIdToken();
+        if (token) {
+          SecureStore.setItemAsync('user_secure_token', token);
+        }
+
         setDoc(doc(firestore, 'users', email), {
-          userId: value.user?.uid,
+          id: value.user?.email,
           age: birthdate,
           name: name,
           phone: phone,
@@ -40,59 +46,86 @@ export default function RegisterUser() {
           address: address,
         });
 
-        navigation.navigate('Adopt');
+        to('Home');
       })
-      .catch((error) => {
+      .catch(error => {
         if (error.code === 'auth/weak-password') {
           Alert.alert('Sua senha deve ter pelo menos 6 caracteres');
         } else if (error.code === 'auth/invalid-email') {
           Alert.alert('Email inválido');
         } else {
-          Alert.alert('Email já cadastrado! ' + error.code);
+          Alert.alert('Email em uso, tente outro.' + error.code);
         }
       });
   }
 
   return (
     <ScrollView style={styles.container}>
-      <Text>Nome</Text>
-      <TextInput style={styles.input} onChangeText={setName} value={name} />
-
-      <Text>Data de nascimento</Text>
       <TextInput
-        style={styles.input}
+        mode="outlined"
+        placeholder="Nome"
+        onChangeText={setName}
+        value={name}
+      />
+
+      <TextInput
+        mode="outlined"
+        placeholder="Idade"
         onChangeText={setBirthdate}
         value={birthdate}
       />
 
-      <Text>Endereço</Text>
       <TextInput
-        style={styles.input}
+        mode="outlined"
+        placeholder="Endereço"
         onChangeText={setAddress}
         value={address}
       />
 
-      <Text>Telefone</Text>
-      <TextInput style={styles.input} onChangeText={setPhone} value={phone} />
-
-      <Text>Email</Text>
-      <TextInput style={styles.input} onChangeText={setEmail} value={email} />
-
-      <Text>Nome de usuário</Text>
       <TextInput
-        style={styles.input}
+        mode="outlined"
+        placeholder="Cidade"
+        onChangeText={setCity}
+        value={city}
+      />
+
+      <TextInput
+        mode="outlined"
+        placeholder="Estado"
+        onChangeText={setState}
+        value={state}
+      />
+
+      <TextInput
+        mode="outlined"
+        placeholder="Telefone"
+        onChangeText={setPhone}
+        value={phone}
+      />
+
+      <TextInput
+        mode="outlined"
+        placeholder="Email"
+        onChangeText={setEmail}
+        value={email}
+      />
+      <TextInput
+        mode="outlined"
+        placeholder="Nome de usuário"
         onChangeText={setUsername}
         value={username}
       />
 
-      <Text>Senha</Text>
       <TextInput
-        style={styles.input}
+        mode="outlined"
+        placeholder="Senha"
         secureTextEntry={true}
         onChangeText={setPassword}
         value={password}
       />
-      <Button style={styles.button} title="Cadastrar" onPress={register} />
+      <Button style={styles.buttonMargin} mode="contained" onPress={register}>
+        Cadastrar
+      </Button>
     </ScrollView>
   );
 }
