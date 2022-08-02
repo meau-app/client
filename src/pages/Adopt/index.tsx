@@ -10,15 +10,6 @@ export default function Adopt() {
 
   return (
     <View style={styles.container}>
-      <Text> Tela Adotar </Text>
-      <Button title="Home" onPress={() => navigation.navigate('Home')} />
-      <Button
-        title="Logout"
-        onPress={() => {
-          SecureStore.setItemAsync('secure_token', '');
-          navigation.navigate('Home');
-        }}
-      />
     </View>
   );
 }

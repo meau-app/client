@@ -11,11 +11,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonList: {
-    marginTop: 370,
+    marginTop: 256,
     width: 200,
   },
   title: {
-    fontSize: 70,
+    fontSize: 64,
     fontWeight: '300',
   },
 
