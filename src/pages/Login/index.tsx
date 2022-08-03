@@ -23,10 +23,10 @@ export default function Login() {
         to('Home');
       })
       .catch(error => {
-        Alert.alert('Email ou senha inválidos');
+        Alert.alert('email ou senha inválidos');
       });
   }
-    
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <TextInput

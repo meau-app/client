@@ -1,15 +1,32 @@
-import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet, Alert } from 'react-native';
+import { Button, Text } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
-import { auth } from '../../service/database/firebase';
-import { getFirestore, setDoc, doc } from 'firebase/firestore';
-import * as SecureStore from 'expo-secure-store';
+
+import { API } from '../../service/api';
 
 export default function Adopt() {
   const navigation = useNavigation();
 
+  let api = new API();
+
+  function request() {
+    api
+      .pets()
+      .then(v => {
+        setPets(v);
+      })
+      .catch(e => {
+        Alert.alert(e);
+      });
+  }
+
+  const [pets, setPets] = useState('');
+
   return (
     <View style={styles.container}>
+      <Button onPress={request}>carregar</Button>
+      <Text>{pets}</Text>
     </View>
   );
 }
