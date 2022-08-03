@@ -1,4 +1,5 @@
 import * as SecureStore from 'expo-secure-store';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../database/firebase';
 
 module Authentication {
@@ -6,8 +7,7 @@ module Authentication {
     email: string,
     password: string
   ): Promise<boolean> {
-    return auth
-      .signInWithEmailAndPassword(email, password)
+    return signInWithEmailAndPassword(auth, email, password)
       .then(async credentials => {
         const email = credentials.user?.email;
         const token = await credentials.user?.getIdToken(true);

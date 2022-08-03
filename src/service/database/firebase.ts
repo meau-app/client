@@ -1,18 +1,18 @@
-import firebase from "firebase/compat/app";
+import { initializeApp } from 'firebase/app';
 
-import 'firebase/compat/database';
-import 'firebase/compat/auth';
+import 'firebase/database';
+import { getAuth } from 'firebase/auth';
 
 let firebaseConfig = {
-  apiKey: "AIzaSyCR9iTZu4Yw6eIgzfCHFfcY0W4FOzGHJpE",
-  authDomain: "unb-adote.firebaseapp.com",
-  projectId: "unb-adote",
-  storageBucket: "unb-adote.appspot.com",
-  messagingSenderId: "148599077912",
-  appId: "1:148599077912:web:e962faf951a734f1fc976d"
+  apiKey: 'AIzaSyCR9iTZu4Yw6eIgzfCHFfcY0W4FOzGHJpE',
+  authDomain: 'unb-adote.firebaseapp.com',
+  projectId: 'unb-adote',
+  storageBucket: 'unb-adote.appspot.com',
+  messagingSenderId: '148599077912',
+  appId: '1:148599077912:web:e962faf951a734f1fc976d',
 };
 
-const app = firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth()
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-export {auth}
+export { auth };

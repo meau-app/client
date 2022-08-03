@@ -1,11 +1,15 @@
 import { useState } from 'react';
 import { ScrollView, Alert } from 'react-native';
-import { Text, Button, TextInput } from 'react-native-paper';
+import { Button, TextInput } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
-import { auth } from '../../service/database/firebase';
+
+import { auth } from '../../service/database/firebase'
 import { getFirestore, setDoc, doc } from 'firebase/firestore';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+
 import * as SecureStore from 'expo-secure-store';
 import styles from './styles';
+
 
 const firestore = getFirestore();
 
@@ -27,8 +31,7 @@ export default function RegisterUser() {
   const [address, setAddress] = useState('');
 
   function register() {
-    auth
-      .createUserWithEmailAndPassword(email, password)
+    createUserWithEmailAndPassword(auth, email, password)
       .then(async value => {
         let token = await value.user?.getIdToken();
         if (token) {
