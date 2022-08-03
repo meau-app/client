@@ -1,31 +1,36 @@
 import { Entity } from './entity';
 
+export type Sex = 'male' | 'female';
+
 export class Pet extends Entity {
   public properties = {
-    id: String(''),
+    id: '',
     adopted: Boolean(),
-    name: String(''),
-    race: String(''),
+    name: '',
+    race: '',
+    sex: '',
     age: Number(),
-    vaccines: Array<string>(),
-    pictures: Array<string>(),
+    vaccines: Array<String>(),
+    pictures: Array<String>(),
   };
 
   constructor(
-    name: string,
-    adopted: boolean,
-    race: string,
-    age: number,
-    vaccines: Array<string>,
-    pictures: Array<string>
+    name?: string,
+    adopted?: boolean,
+    race?: string,
+    sex?: Sex,
+    age?: number,
+    vaccines?: Array<String>,
+    pictures?: Array<String>
   ) {
     super();
 
-    this.properties.adopted = adopted;
-    this.properties.name = name;
-    this.properties.race = race;
-    this.properties.age = age;
-    this.properties.vaccines = vaccines;
-    this.properties.pictures = pictures;
+    this.properties.adopted = adopted !== undefined ? adopted : false;
+    this.properties.name = name !== undefined ? name : '';
+    this.properties.race = race !== undefined ? race : '';
+    this.properties.age = age !== undefined ? age : 0;
+    this.properties.sex = sex !== undefined ? sex : 'male';
+    this.properties.vaccines = vaccines !== undefined ? vaccines : [];
+    this.properties.pictures = pictures !== undefined ? pictures : [];
   }
 }

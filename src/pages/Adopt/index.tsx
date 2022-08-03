@@ -1,32 +1,30 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Alert } from 'react-native';
 import { Button, Text } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native';
 
-import { API } from '../../service/api/interface';
+import { Interface } from '../../service/api/interface';
+import { Pet } from '../../service/api/pet';
 
 export default function Adopt() {
-  const navigation = useNavigation();
-
-  let interface = new API();
+  let api = new Interface();
 
   function request() {
-    interface
-      .pets()
-      .then(v => {
-        setPets(v);
-      })
-      .catch(e => {
-        Alert.alert(e);
-      });
+    api.get(new Pet()).then(v => {
+        setPets(v)
+    }).catch(e => {
+        Alert.alert(e)
+    })
   }
 
-  const [pets, setPets] = useState('');
+  const [pets, setPets] = useState(Array<Pet>);
 
   return (
     <View style={styles.container}>
       <Button onPress={request}>carregar</Button>
-      <Text>{pets}</Text>
+      {pets.map((p, i) => {
+        return <Text>p</Text>
+      })}
+    <Text>none</Text>
     </View>
   );
 }

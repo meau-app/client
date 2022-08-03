@@ -10,18 +10,18 @@ export class User extends Entity {
   };
 
   constructor(
-    name: string,
-    surname: string,
-    email: string,
-    phone: string,
-    username: string
+    name?: string,
+    surname?: string,
+    email?: string,
+    phone?: string,
+    username?: string
   ) {
     super();
 
-    this.properties.name = name;
-    this.properties.surname = surname;
-    this.properties.email = email;
-    this.properties.phone = phone;
-    this.properties.username = username;
+    this.properties.name = name !== undefined ? name : '';
+    this.properties.surname = surname !== undefined ? surname : '';
+    this.properties.email = email !== undefined ? email : '';
+    this.properties.phone = phone !== undefined ? phone : '';
+    this.properties.username = username !== undefined ? username : '';
   }
 }
