@@ -1,7 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useState } from 'react';
 import { ScrollView, Alert } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import styles from './styles';
@@ -14,40 +12,28 @@ export default function Home() {
     navigation.navigate(page);
   }
 
-  function registerAnimal() {
-    to('RegisterAnimal');
-  }
-
-  function adopt() {
-    to('Adopt');
-  }
-
-  function myAnimals() {
-    to('RegisterAnimal');
-  }
-
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Button style={styles.buttonMargin} mode="contained" onPress={adopt}>
+      <Button style={styles.buttonMargin} mode="contained" onPress={() => to('Adopt')}>
         Animais pra Adoção
       </Button>
 
       <Button
         style={styles.buttonMargin}
         mode="contained"
-        onPress={registerAnimal}
+        onPress={() => to('RegisterAnimal')}
       >
         Cadastrar Animal
       </Button>
 
-      <Button style={styles.buttonMargin} mode="contained" onPress={myAnimals}>
+      <Button style={styles.buttonMargin} mode="contained" onPress={() => to('')}>
         Meus Animais
       </Button>
 
       <Button
         onPress={() => {
-          SecureStore.setItemAsync('secure_token', '');
-          navigation.navigate('Login');
+          SecureStore.setItemAsync('user_secure_token', '');
+          to('Login');
         }}
       >
         Logout
