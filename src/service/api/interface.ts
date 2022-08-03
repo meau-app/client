@@ -6,11 +6,11 @@ export class API {
 
   private base_url = 'http://35.188.210.98';
 
-  public async pets(id : string): Promise<string> {
+  public async pets(id?: string): Promise<string> {
     var endpoint = this.endpoints.pets;
 
     if (id.length > 0) {
-        endpoint += '/' + id
+      endpoint += '/' + id;
     }
 
     try {
@@ -20,14 +20,12 @@ export class API {
         let response = await request.text();
         return Promise.resolve(response);
       } else {
-        return Promise.reject(new Error('failed to convert data'))
+        return Promise.reject(new Error('failed to convert data'));
       }
     } catch (error) {
       throw error;
     }
   }
 
-  public users() {
-    
-  }
+  public users() {}
 }

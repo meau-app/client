@@ -8,10 +8,10 @@ import { API } from '../../service/api/interface';
 export default function Adopt() {
   const navigation = useNavigation();
 
-  let api = new API();
+  let interface = new API();
 
   function request() {
-    api
+    interface
       .pets()
       .then(v => {
         setPets(v);
