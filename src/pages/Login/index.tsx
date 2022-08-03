@@ -19,11 +19,11 @@ export default function Login() {
 
   function login() {
     Authentication.authenticate(email, password)
-      .then(value => {
+      .then(() => {
         to('Home');
       })
-      .catch(error => {
-        Alert.alert('email ou senha inválidos');
+      .catch(() => {
+        Alert.alert('Email ou senha inválidos');
       });
   }
 

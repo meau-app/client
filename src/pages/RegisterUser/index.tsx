@@ -2,16 +2,10 @@ import { useState } from 'react';
 import { ScrollView, Alert } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
-
-import { auth } from '../../service/database/firebase'
-import { getFirestore, setDoc, doc } from 'firebase/firestore';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-
-import * as SecureStore from 'expo-secure-store';
 import styles from './styles';
 
-
-const firestore = getFirestore();
+import Authentication from '../../service/authentication/authenticate';
+import { User } from '../../service/api/models/user';
 
 export default function RegisterUser() {
   const navigation = useNavigation();
@@ -22,7 +16,7 @@ export default function RegisterUser() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [birthdate, setBirthdate] = useState('');
+  const [age, setAge] = useState('');
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [phone, setPhone] = useState('');
@@ -30,35 +24,32 @@ export default function RegisterUser() {
   const [state, setState] = useState('');
   const [address, setAddress] = useState('');
 
+  function setAgeHandler(text: string) {
+    setAge(text.replace(/[^0-9]/g, ''));
+  }
+
   function register() {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(async value => {
-        let token = await value.user?.getIdToken();
-        if (token) {
-          SecureStore.setItemAsync('user_secure_token', token);
-        }
+    let user = new User(
+      name,
+      '',
+      email,
+      phone,
+      username,
+      city,
+      state,
+      address,
+      Number(age),
+      "won't say",
+      '',
+      []
+    );
 
-        setDoc(doc(firestore, 'users', email), {
-          id: value.user?.email,
-          age: birthdate,
-          name: name,
-          phone: phone,
-          username: username,
-          city: city,
-          state: state,
-          address: address,
-        });
-
+    Authentication.register(user, email, password)
+      .then(() => {
         to('Home');
       })
-      .catch(error => {
-        if (error.code === 'auth/weak-password') {
-          Alert.alert('Sua senha deve ter pelo menos 6 caracteres');
-        } else if (error.code === 'auth/invalid-email') {
-          Alert.alert('Email inválido');
-        } else {
-          Alert.alert('Email em uso, tente outro.' + error.code);
-        }
+      .catch(e => {
+        Alert.alert(e);
       });
   }
 
@@ -74,8 +65,8 @@ export default function RegisterUser() {
       <TextInput
         mode="outlined"
         placeholder="Idade"
-        onChangeText={setBirthdate}
-        value={birthdate}
+        onChangeText={setAgeHandler}
+        value={age}
       />
 
       <TextInput
