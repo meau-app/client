@@ -10,7 +10,7 @@ export default function Adopt() {
 
   function request() {
     api.get(new Pet()).then(v => {
-        setPets(v)
+        setPets(v as Array<Pet>)
     }).catch(e => {
         Alert.alert(e)
     })
@@ -22,7 +22,7 @@ export default function Adopt() {
     <View style={styles.container}>
       <Button onPress={request}>carregar</Button>
       {pets.map((p, i) => {
-        return <Text>p</Text>
+        return <Text>{p.properties.name}</Text>
       })}
     <Text>none</Text>
     </View>
