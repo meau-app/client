@@ -6,9 +6,15 @@ export class API {
 
   private base_url = 'http://35.188.210.98';
 
-  public async pets(): Promise<string> {
+  public async pets(id : string): Promise<string> {
+    var endpoint = this.endpoints.pets;
+
+    if (id.length > 0) {
+        endpoint += '/' + id
+    }
+
     try {
-      let request = await fetch(this.base_url + this.endpoints.pets);
+      let request = await fetch(this.base_url + endpoint);
 
       if (request.ok) {
         let response = await request.text();
@@ -21,5 +27,7 @@ export class API {
     }
   }
 
-  public users() {}
+  public users() {
+    
+  }
 }

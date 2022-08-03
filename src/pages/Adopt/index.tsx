@@ -3,7 +3,7 @@ import { View, StyleSheet, Alert } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 
-import { API } from '../../service/api';
+import { API } from '../../service/api/interface';
 
 export default function Adopt() {
   const navigation = useNavigation();
