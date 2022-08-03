@@ -6,6 +6,7 @@ export class Pet extends Entity {
     adopted: Boolean(),
     name: String(''),
     race: String(''),
+    age: Number(),
     vaccines: Array<string>(),
     pictures: Array<string>(),
   };
@@ -14,6 +15,7 @@ export class Pet extends Entity {
     name: string,
     adopted: boolean,
     race: string,
+    age: number,
     vaccines: Array<string>,
     pictures: Array<string>
   ) {
@@ -21,6 +23,8 @@ export class Pet extends Entity {
 
     this.properties.adopted = adopted;
     this.properties.name = name;
+    this.properties.race = race;
+    this.properties.age = age;
     this.properties.vaccines = vaccines;
     this.properties.pictures = pictures;
   }
