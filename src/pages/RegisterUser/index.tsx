@@ -66,6 +66,7 @@ export default function RegisterUser() {
         mode="outlined"
         placeholder="Idade"
         onChangeText={setAgeHandler}
+        keyboardType="numeric"
         value={age}
       />
 
