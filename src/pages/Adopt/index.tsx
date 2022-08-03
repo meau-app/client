@@ -3,7 +3,7 @@ import { View, StyleSheet, Alert } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 
 import { Interface } from '../../service/api/interface';
-import { Pet } from '../../service/api/pet';
+import { Pet } from '../../service/api/models/pet';
 
 export default function Adopt() {
   let api = new Interface();
@@ -22,9 +22,8 @@ export default function Adopt() {
     <View style={styles.container}>
       <Button onPress={request}>carregar</Button>
       {pets.map((p, i) => {
-        return <Text>{p.properties.name}</Text>
+        return <Text>{p.name}</Text>
       })}
-    <Text>none</Text>
     </View>
   );
 }

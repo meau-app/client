@@ -1,7 +1,7 @@
 import { objectProperty } from '@babel/types';
-import { Entity } from './entity';
-import { Pet } from './pet';
-import { User } from './user';
+import { Entity } from './models/entity';
+import { Pet } from './models/pet';
+import { User } from './models/user';
 
 export class Interface {
   private endpoints = {
