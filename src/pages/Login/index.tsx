@@ -39,6 +39,7 @@ export default function Login() {
       <TextInput
         mode="outlined"
         placeholder="Senha"
+        secureTextEntry={true}
         onChangeText={setPassword}
         value={password}
       />
