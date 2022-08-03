@@ -19,10 +19,10 @@ export default function Login() {
 
   function login() {
     Authentication.authenticate(email, password)
-      .then(value => {
+      .then(() => {
         to('Home');
       })
-      .catch(error => {
+      .catch(() => {
         Alert.alert('Email ou senha inválidos');
       });
   }
@@ -39,6 +39,7 @@ export default function Login() {
       <TextInput
         mode="outlined"
         placeholder="Senha"
+        secureTextEntry={true}
         onChangeText={setPassword}
         value={password}
       />

@@ -1,24 +1,29 @@
-import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { auth } from '../../service/database/firebase';
-import { getFirestore, setDoc, doc } from 'firebase/firestore';
-import * as SecureStore from 'expo-secure-store';
+import React, { useState } from 'react';
+import { View, StyleSheet, Alert } from 'react-native';
+import { Button, Text } from 'react-native-paper';
+
+import { Interface } from '../../service/api/interface';
+import { Pet } from '../../service/api/models/pet';
 
 export default function Adopt() {
-  const navigation = useNavigation();
+  let api = new Interface();
+
+  function request() {
+    api.get(new Pet()).then(v => {
+        setPets(v as Array<Pet>)
+    }).catch(e => {
+        Alert.alert(e)
+    })
+  }
+
+  const [pets, setPets] = useState(Array<Pet>);
 
   return (
     <View style={styles.container}>
-      <Text> Tela Adotar </Text>
-      <Button title="Home" onPress={() => navigation.navigate('Home')} />
-      <Button
-        title="Logout"
-        onPress={() => {
-          SecureStore.setItemAsync('secure_token', '');
-          navigation.navigate('Home');
-        }}
-      />
+      <Button onPress={request}>carregar</Button>
+      {pets.map((p, i) => {
+        return <Text>{p.name}</Text>
+      })}
     </View>
   );
 }
