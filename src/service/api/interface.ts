@@ -11,29 +11,6 @@ export class Interface {
 
   private base_url = 'http://35.188.210.98';
 
-  private async pets(id?: string): Promise<string> {
-    var endpoint = this.endpoints.pets;
-
-    if (id !== undefined && id.length > 0) {
-      endpoint += '/' + id;
-    }
-
-    try {
-      let request = await fetch(this.base_url + endpoint);
-
-      if (request.ok) {
-        let response = await request.text();
-        return Promise.resolve(response);
-      } else {
-        return Promise.reject(new Error('failed to convert data'));
-      }
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  private users() {}
-
   public async get(object: Entity, id?: string): Promise<Array<Entity>> {
     let result = Array<Entity>();
     let endpoint = '';
