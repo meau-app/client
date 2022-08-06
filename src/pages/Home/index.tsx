@@ -4,17 +4,27 @@ import { ScrollView, Alert } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import styles from './styles';
 import * as SecureStore from 'expo-secure-store';
+import Authentication from '../../service/authentication/authenticate';
+import { linkWithRedirect } from 'firebase/auth';
 
 export default function Home() {
   const navigation = useNavigation();
 
   function to(page: string): void {
-    navigation.navigate(page);
+    let m = {
+      name: page,
+      key: page,
+    };
+    navigation.navigate(m);
   }
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Button style={styles.buttonMargin} mode="contained" onPress={() => to('Adopt')}>
+      <Button
+        style={styles.buttonMargin}
+        mode="contained"
+        onPress={() => to('Adopt')}
+      >
         Animais pra Adoção
       </Button>
 
@@ -26,14 +36,24 @@ export default function Home() {
         Cadastrar Animal
       </Button>
 
-      <Button style={styles.buttonMargin} mode="contained" onPress={() => to('')}>
+      <Button
+        style={styles.buttonMargin}
+        mode="contained"
+        onPress={() => to('')}
+        disabled
+      >
         Meus Animais
       </Button>
 
       <Button
         onPress={() => {
-          SecureStore.setItemAsync('user_secure_token', '');
-          to('Login');
+          Authentication.logout()
+            .then(() => {
+              to('Preload');
+            })
+            .catch(e => {
+              Alert.alert('Falha ao sair, tente novamente');
+            });
         }}
       >
         Logout
