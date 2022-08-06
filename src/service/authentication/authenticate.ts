@@ -10,7 +10,7 @@ import { auth, firestore } from '../database/firebase';
 module Authentication {
   export const TOKEN = 'user_secure_token';
 
-  export async function authenticate(
+  export async function login(
     email: string,
     password: string
   ): Promise<boolean> {
@@ -35,9 +35,18 @@ module Authentication {
       });
   }
 
+  export async function logout(): Promise<boolean> {
+    try {
+      await SecureStore.setItemAsync(TOKEN, '');
+      return Promise.resolve(true);
+    } catch (e) {
+      return Promise.reject(false);
+    }
+  }
+
   export async function check(): Promise<boolean> {
     let token = await SecureStore.getItemAsync(TOKEN);
-    if (token === undefined || token === null || token === '' ) {
+    if (token === undefined || token === null || token === '') {
       return Promise.reject(false);
     }
 
