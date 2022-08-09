@@ -1,7 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { View } from 'react-native';
+import { View, Image } from 'react-native';
 import { Text, Button } from 'react-native-paper';
+
 
 import Authentication from '../../service/authentication/authenticate';
 
@@ -20,18 +21,28 @@ export default function Preload() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>MEAU</Text>
+      <Text style={styles.title}>Ola!</Text>
+      <Text style ={styles.text}>
+        Bem vindo ao Meau!
+        Aqui voce pode adotar, doar e ajudar 
+        caes e gatos com facilidade.
+        Qual o seu interesse?
+      </Text>
       <View style={styles.buttonList}>
-        <Button mode="contained" onPress={() => to('Login')}>
-          Login
+        <Button style={styles.buttonStyle} mode="contained" onPress={() => to('Login')}>
+          <Text style={styles.buttonText}>
+            Login
+          </Text>
         </Button>
+      <View style={styles.buttonMargin}></View>
         <Button
-          style={styles.buttonMargin}
+          style={styles.buttonStyle}
           mode="contained"
-          onPress={() => to('RegisterUser')}
-        >
-          Cadastrar
+          onPress={() => to('RegisterUser')}>
+          <Text style={styles.buttonText}>Cadastrar</Text>
         </Button>
+        <View style={styles.buttonMargin2}></View>
+        <Image style={styles.image} source={require('../../../assets/Meau_marca.png')} />
       </View>
     </View>
   );

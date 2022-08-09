@@ -61,7 +61,8 @@ export default function RegisterUser() {
 
   return (
     <ScrollView style={styles.container}>
-      <TextInput
+      <TextInput 
+        style={styles.textInput}
         mode="outlined"
         placeholder="Nome"
         onChangeText={setName}
@@ -69,6 +70,7 @@ export default function RegisterUser() {
       />
 
       <TextInput
+        style={styles.textInput}
         mode="outlined"
         placeholder="Idade"
         onChangeText={setBirthdate}
@@ -76,6 +78,7 @@ export default function RegisterUser() {
       />
 
       <TextInput
+        style={styles.textInput}
         mode="outlined"
         placeholder="Endereço"
         onChangeText={setAddress}
@@ -83,6 +86,7 @@ export default function RegisterUser() {
       />
 
       <TextInput
+        style={styles.textInput}
         mode="outlined"
         placeholder="Cidade"
         onChangeText={setCity}
@@ -90,6 +94,7 @@ export default function RegisterUser() {
       />
 
       <TextInput
+        style={styles.textInput}
         mode="outlined"
         placeholder="Estado"
         onChangeText={setState}
@@ -97,6 +102,7 @@ export default function RegisterUser() {
       />
 
       <TextInput
+        style={styles.textInput}
         mode="outlined"
         placeholder="Telefone"
         onChangeText={setPhone}
@@ -104,12 +110,14 @@ export default function RegisterUser() {
       />
 
       <TextInput
+        style={styles.textInput}
         mode="outlined"
         placeholder="Email"
         onChangeText={setEmail}
         value={email}
       />
       <TextInput
+        style={styles.textInput}
         mode="outlined"
         placeholder="Nome de usuário"
         onChangeText={setUsername}
@@ -117,13 +125,14 @@ export default function RegisterUser() {
       />
 
       <TextInput
+        style={styles.textInput}
         mode="outlined"
         placeholder="Senha"
         secureTextEntry={true}
         onChangeText={setPassword}
         value={password}
       />
-      <Button style={styles.buttonMargin} mode="contained" onPress={register}>
+      <Button style={styles.buttonStyle} mode="contained" onPress={register}>
         Cadastrar
       </Button>
     </ScrollView>
