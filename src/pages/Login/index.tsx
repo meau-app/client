@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
-import { ScrollView, Alert } from 'react-native';
+import { ScrollView, View, Alert } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 
 import Authentication from '../../service/authentication/authenticate';
@@ -32,8 +32,9 @@ export default function Login() {
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <View contentContainerStyle={styles.container}>
       <TextInput
+        style={styles.textInput}
         mode="outlined"
         placeholder="Email"
         onChangeText={setEmail}
@@ -41,15 +42,17 @@ export default function Login() {
       />
 
       <TextInput
+        style={styles.textInput}
         mode="outlined"
         placeholder="Senha"
         secureTextEntry={true}
         onChangeText={setPassword}
         value={password}
       />
-      <Button style={styles.buttonMargin} mode="contained" onPress={login}>
+      <View style={styles.buttonMargin}></View>
+      <Button style={styles.buttonStyle} mode="contained" onPress={login}>
         Login
       </Button>
-    </ScrollView>
+    </View>
   );
 }
