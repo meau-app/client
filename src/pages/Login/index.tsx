@@ -11,14 +11,18 @@ export default function Login() {
   const navigation = useNavigation();
 
   function to(page: string): void {
-    navigation.navigate(page);
+    let m = {
+      name: page,
+      key: '',
+    };
+    navigation.navigate(m);
   }
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   function login() {
-    Authentication.authenticate(email, password)
+    Authentication.login(email, password)
       .then(() => {
         to('Home');
       })

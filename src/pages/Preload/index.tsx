@@ -11,11 +11,17 @@ export default function Preload() {
   const navigation = useNavigation();
 
   function to(page: string): void {
-    navigation.navigate(page);
+    let m = {
+        name: page,
+        key: page,
+      };
+      navigation.navigate(m);
   }
 
   Authentication.check().then(() => {
     to('Home');
+  }).catch(e => {
+    // ignore
   });
 
   return (
