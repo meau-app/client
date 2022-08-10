@@ -45,8 +45,8 @@ export default function Home() {
 
             return <Ionicons name={icon} size={size} color={color} />;
           },
-          tabBarActiveTintColor: 'tomato',
-          tabBarInactiveTintColor: 'gray',
+          tabBarActiveTintColor: '#365047',
+          tabBarInactiveTintColor: '#BBBBB',
         })}
       >
         <Tab.Screen name="Adotar" component={Adopt} />
