@@ -32,9 +32,6 @@ export default function App() {
             component={Home}
             options={{ headerShown: false }}
           />
-          <Stack.Screen name="Profile" component={Profile} />
-          <Stack.Screen name="Adopt" component={Adopt} />
-          <Stack.Screen name="Help" component={Help} />
           <Stack.Screen
             name="Login"
             component={Login}
