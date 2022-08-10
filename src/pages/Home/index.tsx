@@ -20,6 +20,13 @@ export default function Home() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+        <Button
+        style={styles.buttonMargin}
+        mode="contained"
+        onPress={() => to('Profile')}
+      >
+        Perfil
+      </Button>
       <Button
         style={styles.buttonMargin}
         mode="contained"
@@ -46,6 +53,7 @@ export default function Home() {
       </Button>
 
       <Button
+        style={styles.buttonMargin}
         onPress={() => {
           Authentication.logout()
             .then(() => {

@@ -29,8 +29,8 @@ export default function Adopt() {
             <Text>Carregando...</Text>
         ) : (
             pets.map((p, i) => {
-                return <Text>{p.name}</Text>
-          })
+                return <Text key={i}>{p.name}</Text>
+            })
         )}
     </View>
   );
