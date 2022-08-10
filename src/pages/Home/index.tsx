@@ -38,7 +38,9 @@ export default function Home() {
             if (route.name === 'Adotar') {
               icon = focused ? 'bug' : 'bug-outline';
             } else if (route.name === 'Notificações') {
-              icon = focused ? 'ios-notifications' : 'ios-notifications-outline';
+              icon = focused
+                ? 'ios-notifications'
+                : 'ios-notifications-outline';
             } else if (route.name === 'Perfil') {
               icon = focused ? 'ios-person' : 'ios-person-outline';
             }
@@ -49,7 +51,11 @@ export default function Home() {
           tabBarInactiveTintColor: '#BBBBB',
         })}
       >
-        <Tab.Screen name="Adotar" component={Adopt} />
+        <Tab.Screen
+          name="Adotar"
+          component={Adopt}
+          options={{ headerShown: false }}
+        />
         <Tab.Screen name="Notificações" component={Notification} />
         <Tab.Screen name="Perfil" component={Profile} />
       </Tab.Navigator>
