@@ -13,6 +13,7 @@ import Adopt from './src/pages/Adopt';
 import Login from './src/pages/Login';
 import RegisterAnimal from './src/pages/RegisterAnimal';
 import RegisterUser from './src/pages/RegisterUser';
+import Profile from './src/pages/Profile';
 
 const Stack = createNativeStackNavigator();
 
@@ -31,6 +32,7 @@ export default function App() {
             component={Home}
             options={{ headerShown: false }}
           />
+          <Stack.Screen name="Profile" component={Profile} />
           <Stack.Screen name="Adopt" component={Adopt} />
           <Stack.Screen name="Help" component={Help} />
           <Stack.Screen
