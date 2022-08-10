@@ -53,5 +53,5 @@ export class Interface {
     }
   }
 
-  public delete(object: Entity) {}
+  public delete(object: Entity, id: string) {}
 }
