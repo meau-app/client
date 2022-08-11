@@ -5,6 +5,7 @@ export type Sex = 'male' | 'female';
 export class Pet extends Entity {
   public properties = {
     id: '',
+    temper: '',
     adopted: Boolean(),
     name: '',
     species: '',
@@ -16,6 +17,7 @@ export class Pet extends Entity {
 
   constructor(
     name?: string,
+    temper?: string,
     adopted?: boolean,
     race?: string,
     sex?: Sex,
@@ -27,6 +29,7 @@ export class Pet extends Entity {
 
     this.properties.adopted = adopted !== undefined ? adopted : false;
     this.properties.name = name !== undefined ? name : '';
+    this.properties.temper = temper !== undefined ? temper : '';
     this.properties.species = race !== undefined ? race : '';
     this.properties.age = age !== undefined ? age : 0;
     this.properties.sex = sex !== undefined ? sex : 'male';
