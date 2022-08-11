@@ -1,16 +1,23 @@
 import React from 'react';
 import { View, StyleSheet, ScrollView, Alert } from 'react-native';
 import { Button, Text, TextInput, RadioButton } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native';
 import styles from './styles';
 
-export default function RegisterAnimal() {
-  const navigation = useNavigation();
-
+export default function RegisterAnimal({ navigation }) {
   const [checked, setChecked] = React.useState('first');
-  const [checked2, setChecked2] = React.useState('first');
+  const [checked2, setChecked2] = React.useState('second');
   const [checked3, setChecked3] = React.useState('third');
-  
+
+  function to(page: string): void {
+    let m = {
+      name: page,
+      key: page,
+    };
+    navigation.navigate(m);
+  }
+
+  function register() {}
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text>Tenho interessa em cadastrar o animal para:</Text>
@@ -19,11 +26,11 @@ export default function RegisterAnimal() {
           Adoção
         </Button>
 
-        <Button style={styles.buttonMargin} mode="contained">
+        <Button style={styles.buttonMargin} mode="contained" disabled={true}>
           Apadrinhar
         </Button>
 
-        <Button style={styles.buttonMargin} mode="contained">
+        <Button style={styles.buttonMargin} mode="contained" disabled={true}>
           Ajuda
         </Button>
       </View>
@@ -102,6 +109,9 @@ export default function RegisterAnimal() {
           />
           <Text style={styles.margin10}>Grande</Text>
         </View>
+        <Button mode="contained" onPress={register}>
+          Cadastrar
+        </Button>
       </View>
     </ScrollView>
   );
