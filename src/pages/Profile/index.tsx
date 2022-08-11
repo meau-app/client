@@ -7,11 +7,20 @@ import { Interface } from '../../service/api/interface';
 
 import styles from './styles';
 import { auth } from '../../service/database/firebase';
+import Authentication from '../../service/authentication/authenticate';
 
-export default function Profile() {
+export default function Profile({ navigation }) {
   let api = new Interface();
 
   const [state, setState] = useState(0);
+
+  function to(page: string): void {
+    let m = {
+      name: page,
+      key: page,
+    };
+    navigation.navigate(m);
+  }
 
   async function request() {
     try {
@@ -22,6 +31,16 @@ export default function Profile() {
     }
   }
 
+  function logout() {
+    Authentication.logout()
+      .then(v => {
+        to('Preload')
+      })
+      .catch(e => {
+        Alert.alert('Falha ao sair, tente novamente');
+      });
+  }
+
   const email = auth.currentUser?.email!;
   const user = useMemo(() => {
     request()
@@ -30,7 +49,7 @@ export default function Profile() {
         return v;
       })
       .catch(e => {
-        Alert.alert('Falha ao carregar dados, ' + e as string)
+        Alert.alert(('Falha ao carregar dados, ' + e) as string);
       });
   }, [email]);
 
@@ -50,6 +69,7 @@ export default function Profile() {
           <Text>Usuário </Text>
         </View>
       )}
+      <Button onPress={logout}>Logout</Button>
     </ScrollView>
   );
 }

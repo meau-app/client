@@ -9,9 +9,8 @@ import { Pet } from '../../service/api/models/pet';
 
 import styles from './styles'
 
-export default function Adopt() {
+export default function Adopt({navigation}) {
   let api = new Interface();
-    let navigation = useNavigation();
 
   const [state, setState] = useState('loading')
   const [pets, setPets] = useState(Array<Pet>);
@@ -19,7 +18,7 @@ export default function Adopt() {
   function to(page: string): void {
     let m = {
       name: page,
-      key: '',
+      key: page,
     };
     navigation.navigate(m);
   }
@@ -46,7 +45,7 @@ export default function Adopt() {
                 <Text>Carregando...</Text>
             ) : (
                 pets.map((p, i) => {
-                    return <Card onPress={() =>{to('')}}>
+                    return <Card key={i} onPress={() =>{to('')}}>
                         <Card.Title
                             title={p.name}
                             subtitle={p.temper}
