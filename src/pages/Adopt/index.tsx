@@ -9,7 +9,7 @@ import { Pet } from '../../service/api/models/pet';
 
 import styles from './styles'
 
-export default function Adopt({navigation}) {
+export default function Adopt({ navigation }) {
   let api = new Interface();
 
   const [state, setState] = useState('loading')
@@ -25,10 +25,10 @@ export default function Adopt({navigation}) {
 
   function request() {
     api.get(new Pet()).then(v => {
-        setPets(v as Array<Pet>)
-        setState('')
+        setPets(v as Array<Pet>);
+        setState('');
     }).catch(e => {
-        Alert.alert(e)
+        Alert.alert(e);
     })
   }
 
@@ -36,7 +36,7 @@ export default function Adopt({navigation}) {
     request(),
     <SafeAreaView>
     <Appbar.Header style={styles.bar}>
-        <Appbar.Content title="ADOTE" titleStyle={styles.title}/>
+        <Appbar.Content title="MEAU" titleStyle={styles.title}/>
         <Appbar.Action icon="plus" style={styles.bar} onPress={() => {to('RegisterAnimal')}} />
     </Appbar.Header>
     <ScrollView>
@@ -50,7 +50,9 @@ export default function Adopt({navigation}) {
                             title={p.name}
                             subtitle={p.temper}
                         />
-                        <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
+                        <Card.Cover source={{
+                            uri: 'https://picsum.photos/700'
+                        }} />
                   </Card>
                 })
             )}
