@@ -47,7 +47,13 @@ export default function App() {
             component={RegisterUser}
             options={{ headerTitle: 'Registrar Usuário' }}
           />
-          <Stack.Screen name="RegisterAnimal" component={RegisterAnimal} />
+          <Stack.Screen
+            name="RegisterAnimal"
+            component={RegisterAnimal}
+            options={{
+              headerTitle: 'Registrar Pet',
+            }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
