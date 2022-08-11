@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     textShadowColor: 'rgba(0,0,0,0)'
   },
   bar: {
-    backgroundColor: 'rgba(0, 0, 0, 0)'
+    backgroundColor: '#fff'
   },
 });
 
