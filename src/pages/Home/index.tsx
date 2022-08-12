@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { ScrollView, Alert } from 'react-native';
+import { ScrollView, Alert, Text, Image, View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import styles from './styles';
 import * as SecureStore from 'expo-secure-store';
@@ -20,40 +20,49 @@ export default function Home() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-        <Button
-        style={styles.buttonMargin}
+      <Text style={styles.title}>Olá!</Text>
+      <Text style ={styles.text}>
+        Bem vindo ao Meau!
+        Aqui você pode adotar, doar e ajudar 
+        cães e gatos com facilidade.
+        Qual o seu interesse?
+      </Text>
+      <View style={styles.buttonMargin48}></View>
+      <Button
+        style={styles.buttonStyle}
         mode="contained"
         onPress={() => to('Profile')}
       >
-        Perfil
+       <Text style={styles.buttonText}>Perfil</Text>
       </Button>
+      <View style={styles.buttonMargin12}></View>
       <Button
-        style={styles.buttonMargin}
+        style={styles.buttonStyle}
         mode="contained"
         onPress={() => to('Adopt')}
       >
-        Animais pra Adoção
+        <Text style={styles.buttonText}>Animais pra Adoção</Text>
       </Button>
-
+      <View style={styles.buttonMargin12}></View>
       <Button
-        style={styles.buttonMargin}
+        style={styles.buttonStyle}
         mode="contained"
         onPress={() => to('RegisterAnimal')}
       >
-        Cadastrar Animal
+        <Text style={styles.buttonText}>Cadastrar Animal</Text>
       </Button>
-
+      <View style={styles.buttonMargin12}></View>
       <Button
-        style={styles.buttonMargin}
+        style={styles.buttonStyle}
         mode="contained"
         onPress={() => to('')}
         disabled
       >
-        Meus Animais
+        <Text style={styles.buttonText}>Meus Animais</Text>
       </Button>
 
       <Button
-        style={styles.buttonMargin}
+        style={styles.buttonMargin48}
         onPress={() => {
           Authentication.logout()
             .then(() => {
@@ -64,8 +73,10 @@ export default function Home() {
             });
         }}
       >
-        Logout
+      <Text style={styles.textlogout}>Logout</Text>
       </Button>
+      <Image 
+      style={styles.image} source={require('../../../assets/Meau_marca.png')} />
     </ScrollView>
   );
 }

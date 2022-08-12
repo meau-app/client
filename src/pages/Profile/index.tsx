@@ -40,14 +40,16 @@ export default function Profile() {
         <Text>Carregando...</Text>
       ) : (
         <View>
-          <Text>Nome </Text>
-          <Text>Idade </Text>
-          <Text>Endereço </Text>
-          <Text>Cidade </Text>
-          <Text>Estado </Text>
-          <Text>Telefone </Text>
-          <Text>Email </Text>
-          <Text>Usuário </Text>
+          <Text style={styles.textForm} >colocar aqui FOTO PERFIL</Text>
+          <Text style={styles.textForm}>Nome Completo</Text>
+          <Text style={styles.textForm}>Idade</Text>
+          <Text style={styles.textForm}>Endereço</Text>
+          <Text style={styles.textForm}>Cidade</Text>
+          <Text style={styles.textForm}>Estado</Text>
+          <Text style={styles.textForm}>Telefone</Text>
+          <Text style={styles.textForm}>Email</Text>
+          <Text style={styles.textForm}>Usuário</Text>
+          <Text style={styles.textForm}>Adicionar os botoes</Text>
         </View>
       )}
     </ScrollView>
