@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { View } from 'react-native';
@@ -12,17 +13,19 @@ export default function Preload() {
 
   function to(page: string): void {
     let m = {
-        name: page,
-        key: page,
-      };
-      navigation.navigate(m);
+      name: page,
+      key: page,
+    };
+    navigation.navigate(m);
   }
 
-  Authentication.check().then(() => {
-    to('Home');
-  }).catch(e => {
-    // ignore
-  });
+  Authentication.check()
+    .then(() => {
+      to('Home');
+    })
+    .catch(e => {
+      // ignore
+    });
 
   return (
     <View style={styles.container}>

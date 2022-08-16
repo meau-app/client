@@ -3,14 +3,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 
-import Help from './src/pages/Help';
 import Preload from './src/pages/Preload';
 import Home from './src/pages/Home';
-import Adopt from './src/pages/Adopt';
 import Login from './src/pages/Login';
 import RegisterAnimal from './src/pages/RegisterAnimal';
 import RegisterUser from './src/pages/RegisterUser';
-import Profile from './src/pages/Profile';
 
 const Stack = createNativeStackNavigator();
 const Theme = {
@@ -50,7 +47,13 @@ export default function App() {
             component={RegisterUser}
             options={{ headerTitle: 'Registrar Usuário' }}
           />
-          <Stack.Screen name="RegisterAnimal" component={RegisterAnimal} />
+          <Stack.Screen
+            name="RegisterAnimal"
+            component={RegisterAnimal}
+            options={{
+              headerTitle: 'Registrar Pet',
+            }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
