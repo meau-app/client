@@ -13,6 +13,7 @@ export default function Profile({ navigation }) {
   let api = new Interface();
 
   const [state, setState] = useState(0);
+  const [user, setUser] = useState(new User());
 
   function to(page: string): void {
     let m = {
@@ -22,54 +23,49 @@ export default function Profile({ navigation }) {
     navigation.navigate(m);
   }
 
-  async function request() {
-    try {
-      const v = await api.get(new User(), email);
-      return v[0] as User;
-    } catch (e) {
-      Alert.alert(e as string);
-    }
+  function request() {
+    const email = auth.currentUser?.email!;
+    api
+      .get(new User(), email)
+      .then(v => {
+        setState(1);
+        setUser(v as User);
+      })
+      .catch(e => {
+        Alert.alert(('Falha ao carregar dados, ' + e) as string);
+      });
   }
 
   function logout() {
     Authentication.logout()
       .then(v => {
-        to('Preload')
+        to('Preload');
       })
       .catch(e => {
         Alert.alert('Falha ao sair, tente novamente');
       });
   }
 
-  const email = auth.currentUser?.email!;
-  const user = useMemo(() => {
-    request()
-      .then(v => {
-        setState(1);
-        return v;
-      })
-      .catch(e => {
-        Alert.alert(('Falha ao carregar dados, ' + e) as string);
-      });
-  }, [email]);
-
   return (
-    <ScrollView style={styles.container}>
-      {state === 0 ? (
-        <Text>Carregando...</Text>
-      ) : (
-        <View>
-          <Text>Nome </Text>
-          <Text>Idade </Text>
-          <Text>Endereço </Text>
-          <Text>Cidade </Text>
-          <Text>Estado </Text>
-          <Text>Telefone </Text>
-          <Text>Email </Text>
-          <Text>Usuário </Text>
-        </View>
-      )}
-      <Button onPress={logout}>Logout</Button>
-    </ScrollView>
+    //request(),
+    (
+      <ScrollView style={styles.container}>
+        {state === 0 ? (
+          <Text>Carregando...</Text>
+        ) : (
+          <View>
+            <Text>Nome {user.name} {user.surname}</Text>
+            <Text>Idade {user.age}</Text>
+            <Text>Endereço {user.address}</Text>
+            <Text>Cidade {user.city}</Text>
+            <Text>Estado {user.state}</Text>
+            <Text>Telefone {user.phone}</Text>
+            <Text>Email {user.email}</Text>
+            <Text>Usuário {user.username}</Text>
+          </View>
+        )}
+        <Button onPress={logout}>Logout</Button>
+      </ScrollView>
+    )
   );
 }
