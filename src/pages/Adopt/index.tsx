@@ -43,7 +43,7 @@ export default function Adopt({ navigation }) {
   }
 
   return (
-    request(),
+    //request(),
     (
       <SafeAreaView>
         <Appbar.Header style={styles.bar}>
