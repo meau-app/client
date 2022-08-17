@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Alert, ScrollView } from 'react-native';
 import {
   Appbar,
@@ -42,9 +42,11 @@ export default function Adopt({ navigation }) {
       });
   }
 
+  useEffect(() => {
+    request()
+  }, [])
+
   return (
-    //request(),
-    (
       <SafeAreaView>
         <Appbar.Header style={styles.bar}>
           <Appbar.Content title="MEAU" titleStyle={styles.title} />
@@ -82,6 +84,5 @@ export default function Adopt({ navigation }) {
           </View>
         </ScrollView>
       </SafeAreaView>
-    )
   );
 }
