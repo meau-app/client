@@ -9,7 +9,7 @@ import styles from './styles';
 import { auth } from '../../../service/database/firebase';
 import Authentication from '../../../service/authentication/authenticate';
 
-export default function PetInfo({ navigation, route }) {
+export default function PetInfo({ route }) {
   let api = new Interface();
 
   const [state, setState] = useState(0);
