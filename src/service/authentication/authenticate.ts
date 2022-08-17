@@ -66,7 +66,7 @@ module Authentication {
         }
 
         setDoc(doc(firestore, 'users', email), {
-          id: v.user?.email,
+          email: v.user?.email,
           age: user.properties.age,
           name: user.properties.name,
           phone: user.properties.phone,
@@ -79,7 +79,7 @@ module Authentication {
             return Promise.resolve('');
           })
           .catch(e => {
-            return Promise.reject('Falha ao salvar dados');
+            return Promise.reject('Falha ao registrar usuário');
           });
       })
       .catch(error => {
