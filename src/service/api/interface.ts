@@ -9,7 +9,7 @@ export class Interface {
     users: '/users',
   };
 
-  private base_url = 'http://35.188.210.98';
+  private base_url = 'http://34.69.100.113';
 
   public async get(object: Entity, id?: string): Promise<Array<Entity>> {
     let result = Array<Entity>();
@@ -41,7 +41,7 @@ export class Interface {
         result = Object.values(response) as Array<Entity>;
       }
     } else {
-      return Promise.reject('faaaaaaailed');
+      return Promise.reject(`${request.statusText} (${request.status})`);
     }
 
     return Promise.resolve(result);
