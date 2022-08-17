@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { View, ScrollView, Alert, Image } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 
@@ -46,8 +46,11 @@ export default function Profile({ navigation }) {
       });
   }
 
+  useEffect(() => {
+    request()
+  }, [])
+
   return (
-    //request(),
     (
       <ScrollView style={styles.container}>
         {state === 0 ? (
