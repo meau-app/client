@@ -6,7 +6,6 @@ type Gender = 'male' | 'female' | 'won\'t say'
 export class User extends Entity {
   public properties = {
     name: '',
-    surname: '',
     email: '',
     phone: '',
     username: '',
@@ -21,7 +20,6 @@ export class User extends Entity {
 
   constructor(
     name?: string,
-    surname?: string,
     email?: string,
     phone?: string,
     username?: string,
@@ -36,7 +34,6 @@ export class User extends Entity {
     super();
 
     this.properties.name = name !== undefined ? name : '';
-    this.properties.surname = surname !== undefined ? surname : '';
     this.properties.email = email !== undefined ? email : '';
     this.properties.phone = phone !== undefined ? phone : '';
     this.properties.username = username !== undefined ? username : '';

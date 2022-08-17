@@ -35,7 +35,6 @@ export default function RegisterUser() {
   function register() {
     let user = new User(
       name,
-      '',
       email,
       phone,
       username,
