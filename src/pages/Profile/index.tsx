@@ -47,7 +47,7 @@ export default function Profile({ navigation }) {
   }
 
   return (
-    //request(),
+    request(),
     (
       <ScrollView style={styles.container}>
         {state === 0 ? (

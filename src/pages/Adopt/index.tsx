@@ -43,7 +43,7 @@ export default function Adopt({ navigation }) {
   }
 
   return (
-    //request(),
+    request(),
     (
       <SafeAreaView>
         <Appbar.Header style={styles.bar}>
@@ -66,7 +66,8 @@ export default function Adopt({ navigation }) {
                   <Card
                     key={i}
                     onPress={() => {
-                      to('');
+                      //to('PetInfo',{ petid: p.properties.id});
+                      navigation.navigate('PetInfo', {petid: p.id})
                     }}
                   >
                     <Card.Title title={p.name} subtitle={p.temper} />
