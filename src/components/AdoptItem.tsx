@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
+import { StyleSheet } from 'react-native';
 import { Card } from 'react-native-paper';
 import { Pet } from '../service/api/models/pet';
 
@@ -22,6 +23,7 @@ const AdoptItem: React.FC<AdoptItemProps> = props => {
 
   return (
     <Card
+      style={styles.card}
       onPress={() => {
         to('');
       }}
@@ -38,5 +40,11 @@ const AdoptItem: React.FC<AdoptItemProps> = props => {
     </Card>
   );
 };
+
+const styles = StyleSheet.create({
+  card: {
+    marginTop: 15,
+  },
+});
 
 export default AdoptItem;

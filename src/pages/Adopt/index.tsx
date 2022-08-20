@@ -66,6 +66,7 @@ const Adopt: React.FC<AdoptProps> = props => {
           data={pets}
           keyExtractor={(_, i) => i.toString()}
           renderItem={({ item }) => <AdoptItem item={item} />}
+          style={styles.cards}
         />
       </View>
     </SafeAreaView>

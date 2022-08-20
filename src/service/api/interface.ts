@@ -37,9 +37,8 @@ export class Interface {
 
     if (request.ok) {
       let response = await request.json();
-      if (response.length > 0) {
         let objects = Object.values(response);
-
+    
         if (objects instanceof Array<Pet>) {
             let pets = Array<Pet>()
 
@@ -48,17 +47,13 @@ export class Interface {
             }
 
             result = pets
-        }
-      } else {
-        // returning a single object from one of the available entities
-        if (object instanceof User) {
+        } else if (object instanceof User) {
           let user = User.build(response);
           result = new Array<User>(user);
         } else if (object instanceof Pet) {
           let pet = Pet.build(response);
           result = new Array<Pet>(pet);
         }
-      }
     } else {
       return Promise.reject(`${request.statusText} (${request.status})`);
     }
