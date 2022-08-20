@@ -8,9 +8,12 @@ import { Interface } from '../../service/api/interface';
 import styles from './styles';
 import { auth } from '../../service/database/firebase';
 import Authentication from '../../service/authentication/authenticate';
+import { useNavigation } from '@react-navigation/native';
 
-export default function Profile({ navigation }) {
+const Profile: React.FC = () => {
   let api = new Interface();
+
+  const navigation = useNavigation();
 
   const [state, setState] = useState(0);
   const [user, setUser] = useState(new User());
@@ -47,28 +50,28 @@ export default function Profile({ navigation }) {
   }
 
   useEffect(() => {
-    request()
-  }, [])
+    request();
+  }, []);
 
   return (
-    (
-      <ScrollView style={styles.container}>
-        {state === 0 ? (
-          <Text>Carregando...</Text>
-        ) : (
-          <View>
-            <Text>Nome {user.properties.name}</Text>
-            <Text>Idade {user.properties.age}</Text>
-            <Text>Endereço {user.properties.address}</Text>
-            <Text>Cidade {user.properties.city}</Text>
-            <Text>Estado {user.properties.state}</Text>
-            <Text>Telefone {user.properties.phone}</Text>
-            <Text>Email {user.properties.email}</Text>
-            <Text>Usuário {user.properties.username}</Text>
-          </View>
-        )}
-        <Button onPress={logout}>Logout</Button>
-      </ScrollView>
-    )
+    <ScrollView style={styles.container}>
+      {state === 0 ? (
+        <Text>Carregando...</Text>
+      ) : (
+        <View>
+          <Text>Nome {user.properties.name}</Text>
+          <Text>Idade {user.properties.age}</Text>
+          <Text>Endereço {user.properties.address}</Text>
+          <Text>Cidade {user.properties.city}</Text>
+          <Text>Estado {user.properties.state}</Text>
+          <Text>Telefone {user.properties.phone}</Text>
+          <Text>Email {user.properties.email}</Text>
+          <Text>Usuário {user.properties.username}</Text>
+        </View>
+      )}
+      <Button onPress={logout}>Logout</Button>
+    </ScrollView>
   );
-}
+};
+
+export default Profile;
