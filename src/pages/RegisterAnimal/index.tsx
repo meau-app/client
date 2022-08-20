@@ -1,22 +1,64 @@
-import React from 'react';
-import { View, StyleSheet, ScrollView, Alert } from 'react-native';
-import { Button, Text, TextInput, RadioButton } from 'react-native-paper';
-import styles from './styles';
+import React from "react";
+import { View, StyleSheet, ScrollView, Image } from "react-native";
+import { Button, Text, TextInput, RadioButton } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
+import styles from "./styles";
+import { utils } from "@react-native-firebase/app";
+import storage from "@react-native-firebase/storage";
+import * as ImagePicker from "expo-image-picker";
+import { getApps, initializeApp } from "firebase/app";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import uuid from "uuid";
 
-export default function RegisterAnimal({ navigation }) {
-  const [checked, setChecked] = React.useState('first');
-  const [checked2, setChecked2] = React.useState('second');
-  const [checked3, setChecked3] = React.useState('third');
+export default function RegisterAnimal() {
+  const navigation = useNavigation();
 
-  function to(page: string): void {
-    let m = {
-      name: page,
-      key: page,
-    };
-    navigation.navigate(m);
-  }
+  const [checked, setChecked] = React.useState("first");
+  const [checked2, setChecked2] = React.useState("second");
+  const [checked3, setChecked3] = React.useState("third");
 
-  function register() {}
+  const [image, setImage] = React.useState(null);
+
+  // async function uploadImageAsync(uri) {
+  //   // Why are we using XMLHttpRequest? See:
+  //   // https://github.com/expo/expo/issues/2402#issuecomment-443726662
+  //   const blob = await new Promise((resolve, reject) => {
+  //     const xhr = new XMLHttpRequest();
+  //     xhr.onload = function () {
+  //       resolve(xhr.response);
+  //     };
+  //     xhr.onerror = function (e) {
+  //       console.log(e);
+  //       reject(new TypeError("Network request failed"));
+  //     };
+  //     xhr.responseType = "blob";
+  //     xhr.open("GET", uri, true);
+  //     xhr.send(null);
+  //   });
+
+  //   const fileRef = ref(getStorage(), uuid.v4());
+  //   const result = await uploadBytes(fileRef, blob);
+
+  //   // We're done with the blob, close and release it
+  //   blob.close();
+
+  //   return await getDownloadURL(fileRef);
+  // }
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 2],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -34,6 +76,18 @@ export default function RegisterAnimal({ navigation }) {
           Ajuda
         </Button>
       </View>
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <Button onPress={pickImage}>
+          {image == null ? (
+            "Clique para escolhe uma foto"
+          ) : (
+            <Image
+              source={{ uri: image }}
+              style={{ width: 200, height: 200 }}
+            />
+          )}
+        </Button>
+      </View>
       <TextInput mode="outlined" placeholder="Nome do Animal" />
       <TextInput mode="outlined" placeholder="Sobre o Animal" />
 
@@ -44,16 +98,16 @@ export default function RegisterAnimal({ navigation }) {
             uncheckedColor="black"
             color="black"
             value="first"
-            status={checked === 'first' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('first')}
+            status={checked === "first" ? "checked" : "unchecked"}
+            onPress={() => setChecked("first")}
           />
           <Text style={styles.margin10}>Cachorro</Text>
           <RadioButton
             uncheckedColor="black"
             color="black"
             value="second"
-            status={checked === 'second' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('second')}
+            status={checked === "second" ? "checked" : "unchecked"}
+            onPress={() => setChecked("second")}
           />
           <Text style={styles.margin10}>Gato</Text>
         </View>
@@ -66,16 +120,16 @@ export default function RegisterAnimal({ navigation }) {
             uncheckedColor="black"
             color="black"
             value="first"
-            status={checked2 === 'first' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked2('first')}
+            status={checked2 === "first" ? "checked" : "unchecked"}
+            onPress={() => setChecked2("first")}
           />
           <Text style={styles.margin10}>Macho</Text>
           <RadioButton
             uncheckedColor="black"
             color="black"
             value="second"
-            status={checked2 === 'second' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked2('second')}
+            status={checked2 === "second" ? "checked" : "unchecked"}
+            onPress={() => setChecked2("second")}
           />
           <Text style={styles.margin10}>Fêmea</Text>
         </View>
@@ -88,24 +142,24 @@ export default function RegisterAnimal({ navigation }) {
             uncheckedColor="black"
             color="black"
             value="first"
-            status={checked3 === 'first' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked3('first')}
+            status={checked3 === "first" ? "checked" : "unchecked"}
+            onPress={() => setChecked3("first")}
           />
           <Text style={styles.margin10}>Pequeno</Text>
           <RadioButton
             uncheckedColor="black"
             color="black"
             value="second"
-            status={checked3 === 'second' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked3('second')}
+            status={checked3 === "second" ? "checked" : "unchecked"}
+            onPress={() => setChecked3("second")}
           />
           <Text style={styles.margin10}>Medio</Text>
           <RadioButton
             uncheckedColor="black"
             color="black"
             value="third"
-            status={checked3 === 'third' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked3('third')}
+            status={checked3 === "third" ? "checked" : "unchecked"}
+            onPress={() => setChecked3("third")}
           />
           <Text style={styles.margin10}>Grande</Text>
         </View>
