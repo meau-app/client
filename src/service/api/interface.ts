@@ -1,6 +1,6 @@
 import { objectProperty } from '@babel/types';
 import { Entity } from './models/entity';
-import { Pet } from './models/pet';
+import { Pet, PetResponse } from './models/pet';
 import { User } from './models/user';
 
 export class Interface {
@@ -38,14 +38,25 @@ export class Interface {
     if (request.ok) {
       let response = await request.json();
       if (response.length > 0) {
-        result = Object.values(response) as Array<Entity>;
+        let objects = Object.values(response);
+
+        if (objects instanceof Array<Pet>) {
+            let pets = Array<Pet>()
+
+            for (let i = 0; i < objects.length; i++) {
+                pets.push(Pet.build(objects[i] as PetResponse));
+            }
+
+            result = pets
+        }
       } else {
-        // returning a single object
+        // returning a single object from one of the available entities
         if (object instanceof User) {
           let user = User.build(response);
           result = new Array<User>(user);
-        } else {
-          result = new Array<Entity>(response);
+        } else if (object instanceof Pet) {
+          let pet = Pet.build(response);
+          result = new Array<Pet>(pet);
         }
       }
     } else {
