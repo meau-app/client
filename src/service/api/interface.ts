@@ -11,7 +11,7 @@ export class Interface {
 
   private base_url = 'http://34.69.100.113';
 
-  public async get(object: Entity, id?: string): Promise<any> {
+  public async get(object: Entity, id?: string): Promise<Array<Entity>> {
     let result = Array<Entity>();
     let endpoint = '';
 
@@ -39,9 +39,15 @@ export class Interface {
       let response = await request.json();
       if (response.length > 0) {
         result = Object.values(response) as Array<Entity>;
+      } else {
+        // returning a single object
+        if (object instanceof User) {
+          let user = User.build(response);
+          result = new Array<User>(user);
+        } else {
+          result = new Array<Entity>(response);
+        }
       }
-
-      result = response;
     } else {
       return Promise.reject(`${request.statusText} (${request.status})`);
     }

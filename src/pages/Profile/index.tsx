@@ -29,7 +29,7 @@ export default function Profile({ navigation }) {
       .get(new User(), email)
       .then(v => {
         setState(1);
-        setUser(v as User);
+        setUser(v[0] as User);
       })
       .catch(e => {
         Alert.alert(('Falha ao carregar dados, ' + e) as string);
@@ -57,14 +57,14 @@ export default function Profile({ navigation }) {
           <Text>Carregando...</Text>
         ) : (
           <View>
-            <Text>Nome {user.name} {user.surname}</Text>
-            <Text>Idade {user.age}</Text>
-            <Text>Endereço {user.address}</Text>
-            <Text>Cidade {user.city}</Text>
-            <Text>Estado {user.state}</Text>
-            <Text>Telefone {user.phone}</Text>
-            <Text>Email {user.email}</Text>
-            <Text>Usuário {user.username}</Text>
+            <Text>Nome {user.properties.name}</Text>
+            <Text>Idade {user.properties.age}</Text>
+            <Text>Endereço {user.properties.address}</Text>
+            <Text>Cidade {user.properties.city}</Text>
+            <Text>Estado {user.properties.state}</Text>
+            <Text>Telefone {user.properties.phone}</Text>
+            <Text>Email {user.properties.email}</Text>
+            <Text>Usuário {user.properties.username}</Text>
           </View>
         )}
         <Button onPress={logout}>Logout</Button>
