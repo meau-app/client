@@ -1,7 +1,25 @@
 import { Entity } from './entity';
 import { Pet } from './pet';
 
-type Gender = 'male' | 'female' | 'won\'t say'
+type Gender = 'male' | 'female' | "won't say";
+
+/**
+ * UserResponse is a representation of response that has been sent by the
+ * backend.
+ */
+export interface UserResponse {
+  name: string;
+  email: string;
+  phone: string;
+  username: string;
+  city: string;
+  state: string;
+  address: string;
+  age: number;
+  gender: Gender;
+  profile: string;
+  pets: Array<Pet>;
+}
 
 export class User extends Entity {
   public properties = {
@@ -18,6 +36,8 @@ export class User extends Entity {
     pets: Array<Pet>(),
   };
 
+  // FIXME: change for interface object when receiving it from the backend
+
   constructor(
     name?: string,
     email?: string,
@@ -29,7 +49,7 @@ export class User extends Entity {
     age?: number,
     gender?: Gender,
     profile?: string,
-    pets?: Array<Pet>,
+    pets?: Array<Pet>
   ) {
     super();
 
@@ -40,10 +60,27 @@ export class User extends Entity {
 
     this.properties.city = city !== undefined ? city : '';
     this.properties.state = state !== undefined ? state : '';
-    this.properties.address =address !== undefined ? address : '';
+    this.properties.address = address !== undefined ? address : '';
     this.properties.age = age !== undefined ? age : 0;
     this.properties.gender = gender !== undefined ? gender : '';
     this.properties.profile = profile !== undefined ? profile : '';
     this.properties.pets = pets !== undefined ? pets : Array<Pet>();
+  }
+
+  static build(response: UserResponse): User {
+    let u = new User();
+
+    u.properties.name = response.name;
+    u.properties.email = response.email;
+    u.properties.age = response.age;
+    u.properties.phone = response.phone;
+    u.properties.username = response.username;
+    u.properties.profile = response.profile;
+    u.properties.address = response.address
+    u.properties.city = response.city
+    u.properties.state = response.state
+    u.properties.pets = response.pets
+
+    return u;
   }
 }
