@@ -59,17 +59,15 @@ const Adopt: React.FC<AdoptProps> = props => {
           }}
         />
       </Appbar.Header>
-      <ScrollView>
-        <View>
-          <FlatList
-            ListEmptyComponent={<Text>Carregando...</Text>}
-            onScrollToTop={request}
-            data={pets}
-            keyExtractor={(_, i) => i.toString()}
-            renderItem={({ item }) => <AdoptItem item={item} />}
-          />
-        </View>
-      </ScrollView>
+      <View>
+        <FlatList
+          ListEmptyComponent={<Text>Carregando...</Text>}
+          onScrollToTop={request}
+          data={pets}
+          keyExtractor={(_, i) => i.toString()}
+          renderItem={({ item }) => <AdoptItem item={item} />}
+        />
+      </View>
     </SafeAreaView>
   );
 };
