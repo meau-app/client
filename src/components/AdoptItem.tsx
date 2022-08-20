@@ -10,7 +10,7 @@ interface AdoptItemProps {
 const AdoptItem: React.FC<AdoptItemProps> = props => {
   const navigation = useNavigation();
 
-  const { item } = props;
+  const { item: pet } = props;
 
   function to(page: string): void {
     let m = {
@@ -26,7 +26,10 @@ const AdoptItem: React.FC<AdoptItemProps> = props => {
         to('');
       }}
     >
-      <Card.Title title={item.name} subtitle={item.temper} />
+      <Card.Title
+        title={pet.properties.name}
+        subtitle={pet.properties.temper}
+      />
       <Card.Cover
         source={{
           uri: 'https://picsum.photos/700',
