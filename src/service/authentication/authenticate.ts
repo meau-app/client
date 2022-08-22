@@ -65,30 +65,15 @@ module Authentication {
           SecureStore.setItemAsync(TOKEN, token);
         }
 
-        setDoc(doc(firestore, 'users', email), {
-          email: v.user?.email,
-          age: user.properties.age,
-          name: user.properties.name,
-          phone: user.properties.phone,
-          username: user.properties.username,
-          city: user.properties.city,
-          state: user.properties.state,
-          address: user.properties.address,
-        })
-          .then(() => {
-            return Promise.resolve('');
-          })
-          .catch(e => {
-            return Promise.reject('Falha ao registrar usuário');
-          });
+        return Promise.resolve(User.save(user))
       })
       .catch(error => {
         if (error.code === 'auth/weak-password') {
           return Promise.reject('Sua senha deve ter pelo menos 6 caracteres');
         } else if (error.code === 'auth/invalid-email') {
-          Promise.reject('Email inválido');
+          return Promise.reject('Email inválido');
         } else {
-          Promise.reject('Email em uso, tente outro.' + error.code);
+          return Promise.reject('Email em uso, tente outro.' + error.code);
         }
       });
   }
