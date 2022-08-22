@@ -134,4 +134,29 @@ export class Pet extends Entity {
 
     return Promise.resolve(result);
   }
+
+  static async save(pet: Pet): Promise<string> {
+    let endpoint = Interface.endpoints.pets;
+
+    // method and headers
+    let m = 'POST';
+    let h = new Headers();
+    let t = SecureStore.getItemAsync(Authentication.TOKEN);
+
+    h.set('Authorization', 'Bearer ' + t);
+
+    let request = await fetch(Interface.base_url + endpoint, {
+      headers: h,
+      method: m,
+      body: JSON.stringify(pet.properties)
+    });
+
+    if (request.ok && request.status === 201) {
+      return Promise.resolve('');
+    }
+
+    return Promise.reject(`${request.statusText} (${request.status})`);
+  }
+
+  static async delete(p: Pet): Promise<void> {}
 }
