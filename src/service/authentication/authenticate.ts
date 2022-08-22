@@ -61,7 +61,7 @@ module Authentication {
     return createUserWithEmailAndPassword(auth, email, password)
       .then(async v => {
         try {
-          User.save(user);
+          await User.save(user);
 
           let token = await v.user?.getIdToken();
           if (token) {
