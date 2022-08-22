@@ -72,7 +72,7 @@ module Authentication {
         } catch (e) {
             // rollback action
             deleteUser(v.user)
-            return Promise.reject('Falha ao registrar usuário')
+            return Promise.reject('Falha ao registrar usuário, ' + e)
         }
       })
       .catch(error => {
@@ -83,7 +83,7 @@ module Authentication {
         } else if (error.code === 'auth/email-already-exists') {
           return Promise.reject('Email em uso, tente outro.');
         } else {
-          return Promise.reject('Erro desconhecido, ' + error);
+          return Promise.reject(error);
         }
       });
   }
