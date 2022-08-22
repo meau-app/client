@@ -7,7 +7,7 @@ import styles from './styles';
 import Authentication from '../../service/authentication/authenticate';
 import { User } from '../../service/api/models/user';
 
-export default function RegisterUser() {
+const RegisterUser: React.FC = () => {
   const navigation = useNavigation();
 
   function to(page: string): void {
@@ -126,4 +126,6 @@ export default function RegisterUser() {
       </Button>
     </ScrollView>
   );
-}
+};
+
+export default RegisterUser;

@@ -1,9 +1,8 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { View, ScrollView, Alert, Image } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 
 import { User } from '../../service/api/models/user';
-import { Interface } from '../../service/api/interface';
 
 import styles from './styles';
 import { auth } from '../../service/database/firebase';
@@ -11,8 +10,6 @@ import Authentication from '../../service/authentication/authenticate';
 import { useNavigation } from '@react-navigation/native';
 
 const Profile: React.FC = () => {
-  let api = new Interface();
-
   const navigation = useNavigation();
 
   const [state, setState] = useState(0);
@@ -26,19 +23,6 @@ const Profile: React.FC = () => {
     navigation.navigate(m);
   }
 
-  function request() {
-    const email = auth.currentUser?.email!;
-    api
-      .get(new User(), email)
-      .then(v => {
-        setState(1);
-        setUser(v[0] as User);
-      })
-      .catch(e => {
-        Alert.alert(('Falha ao carregar dados, ' + e) as string);
-      });
-  }
-
   function logout() {
     Authentication.logout()
       .then(v => {
@@ -48,6 +32,18 @@ const Profile: React.FC = () => {
         Alert.alert('Falha ao sair, tente novamente');
       });
   }
+
+  const request = useCallback(async () => {
+    const email = auth.currentUser?.email!;
+    try {
+      let response = await User.get(email);
+
+      setState(1);
+      setUser(response as User);
+    } catch (e: any) {
+      Alert.alert(('Falha ao carregar dados, ' + e) as string);
+    }
+  }, []);
 
   useEffect(() => {
     request();

@@ -12,7 +12,6 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AdoptItem from '../../components/AdoptItem';
 
-import { Interface } from '../../service/api/interface';
 import { Pet } from '../../service/api/models/pet';
 
 import styles from './styles';
@@ -20,8 +19,6 @@ import styles from './styles';
 interface AdoptProps {}
 
 const Adopt: React.FC<AdoptProps> = props => {
-  let api = new Interface();
-
   const navigation = useNavigation();
 
   const [pets, setPets] = useState<Array<Pet>>([]);
@@ -36,7 +33,7 @@ const Adopt: React.FC<AdoptProps> = props => {
 
   const request = useCallback(async () => {
     try {
-      let response = await api.get(new Pet());
+      let response = await Pet.all();
       setPets(response as Array<Pet>);
     } catch (e: any) {
       Alert.alert(e);
