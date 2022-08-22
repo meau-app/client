@@ -36,7 +36,7 @@ export class User extends Entity {
     address: '',
     age: 0,
     gender: '',
-    profile: '',
+    profile_image: '',
     pets: Array<Pet>(),
   };
 
@@ -50,7 +50,7 @@ export class User extends Entity {
     address?: string,
     age?: number,
     gender?: Gender,
-    profile?: string,
+    profile_image?: string,
     pets?: Array<Pet>
   ) {
     super();
@@ -65,7 +65,7 @@ export class User extends Entity {
     this.properties.address = address !== undefined ? address : '';
     this.properties.age = age !== undefined ? age : 0;
     this.properties.gender = gender !== undefined ? gender : '';
-    this.properties.profile = profile !== undefined ? profile : '';
+    this.properties.profile_image = profile_image !== undefined ? profile_image : '';
     this.properties.pets = pets !== undefined ? pets : Array<Pet>();
   }
 
@@ -77,7 +77,7 @@ export class User extends Entity {
     u.properties.age = response.age;
     u.properties.phone = response.phone;
     u.properties.username = response.username;
-    u.properties.profile = response.profile;
+    u.properties.profile_image = response.profile;
     u.properties.address = response.address;
     u.properties.city = response.city;
     u.properties.state = response.state;
@@ -102,7 +102,7 @@ export class User extends Entity {
     // method and headers
     let m = 'GET';
     let h = new Headers();
-    let t = SecureStore.getItemAsync(Authentication.TOKEN)
+    let t = SecureStore.getItemAsync(Authentication.TOKEN);
 
     h.set('Authorization', 'Bearer ' + t);
 
@@ -134,10 +134,34 @@ export class User extends Entity {
    *
    * @param user
    */
-  static save(user: User): void {}
+  static async save(user: User): Promise<string> {
+    let endpoint = Interface.endpoints.users;
+
+    // method and headers
+    let m = 'POST';
+    let h = new Headers();
+    let t = SecureStore.getItemAsync(Authentication.TOKEN);
+
+    h.set('Authorization', 'Bearer ' + t);
+
+    let request = await fetch(Interface.base_url + endpoint, {
+      headers: h,
+      method: m,
+      body: JSON.stringify(user.properties)
+    });
+
+    console.log(user, request.status, request.ok)
+
+    if (request.ok && request.status === 201) {
+      return Promise.resolve('');
+    }
+
+    return Promise.reject(`${request.statusText} (${request.status})`);
+  }
+
   /**
    *
    * @param user
    */
-  static delete(user: User): void {}
+  static async delete(id: string): Promise<void> {}
 }
