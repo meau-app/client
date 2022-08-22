@@ -17,7 +17,7 @@ const RegisterAnimal: React.FC = () => {
   const [checked2, setChecked2] = React.useState('second');
   const [checked3, setChecked3] = React.useState('third');
 
-  const [image, setImage] = React.useState(null);
+  const [image, setImage] = React.useState('');
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
