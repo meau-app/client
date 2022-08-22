@@ -2,10 +2,10 @@ import * as SecureStore from 'expo-secure-store';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  deleteUser
 } from 'firebase/auth';
-import { doc, setDoc } from 'firebase/firestore';
 import { User } from '../api/models/user';
-import { auth, firestore } from '../database/firebase';
+import { auth } from '../database/firebase';
 
 module Authentication {
   export const TOKEN = 'user_secure_token';
@@ -60,20 +60,30 @@ module Authentication {
   ): Promise<any> {
     return createUserWithEmailAndPassword(auth, email, password)
       .then(async v => {
-        let token = await v.user?.getIdToken();
-        if (token) {
-          SecureStore.setItemAsync(TOKEN, token);
-        }
+        try {
+          User.save(user);
 
-        return Promise.resolve(User.save(user))
+          let token = await v.user?.getIdToken();
+          if (token) {
+            SecureStore.setItemAsync(TOKEN, token);
+          }
+
+          return Promise.resolve(true);
+        } catch (e) {
+            // rollback action
+            deleteUser(v.user)
+            return Promise.reject('Falha ao registrar usuário')
+        }
       })
       .catch(error => {
         if (error.code === 'auth/weak-password') {
           return Promise.reject('Sua senha deve ter pelo menos 6 caracteres');
         } else if (error.code === 'auth/invalid-email') {
           return Promise.reject('Email inválido');
+        } else if (error.code === 'auth/email-already-exists') {
+          return Promise.reject('Email em uso, tente outro.');
         } else {
-          return Promise.reject('Email em uso, tente outro.' + error.code);
+          return Promise.reject('Erro desconhecido, ' + error);
         }
       });
   }
