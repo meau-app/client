@@ -11,7 +11,7 @@ type Gender = 'male' | 'female' | "won't say";
  * UserResponse is a representation of response that has been sent by the
  * backend.
  */
-export interface UserResponse {
+interface UserResponse {
   name: string;
   email: string;
   phone: string;

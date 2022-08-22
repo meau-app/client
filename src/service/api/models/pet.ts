@@ -10,7 +10,7 @@ export type Sex = 'male' | 'female';
  * PetResponse is a representation of response that has been sent by the
  * backend.
  */
-export interface PetResponse {
+interface PetResponse {
   name: string;
   temper: string;
   adopted: boolean;
