@@ -66,9 +66,7 @@ module Authentication {
             SecureStore.setItemAsync(TOKEN, token);
           }
 
-          await User.save(user);
-
-          return Promise.resolve(true);
+          return await User.save(user);
         } catch (e) {
           // rollback action
           deleteUser(v.user);
