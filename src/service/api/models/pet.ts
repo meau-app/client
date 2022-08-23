@@ -73,34 +73,34 @@ export class Pet extends Entity {
 
   static async get(id: string): Promise<Pet> {
     if (id === undefined || id.length <= 0) {
-        return Promise.reject(`missing request parameter (400)`);
-      }
+      return Promise.reject(`missing request parameter (400)`);
+    }
 
-      let result = new Pet();
+    let result = new Pet();
 
-      let endpoint = Interface.endpoints.pets + '/' + id;
+    let endpoint = Interface.endpoints.pets + '/' + id;
 
-      // method and headers
-      let m = 'GET';
-      let h = new Headers();
-      let t = SecureStore.getItemAsync(Authentication.TOKEN)
+    // method and headers
+    let m = 'GET';
+    let h = new Headers();
+    let t = SecureStore.getItemAsync(Authentication.TOKEN);
 
-      h.set('Authorization', 'Bearer ' + t);
+    h.set('Authorization', 'Bearer ' + t);
 
-      let request = await fetch(Interface.base_url + endpoint, {
-        headers: h,
-        method: m,
-      });
+    let request = await fetch(Interface.base_url + endpoint, {
+      headers: h,
+      method: m,
+    });
 
-      if (request.ok) {
-        let response = await request.json();
+    if (request.ok) {
+      let response = await request.json();
 
-        result = Pet.build(response as PetResponse);
-      } else {
-        return Promise.reject(`${request.statusText} (${request.status})`);
-      }
+      result = Pet.build(response as PetResponse);
+    } else {
+      return Promise.reject(`${request.statusText} (${request.status})`);
+    }
 
-      return Promise.resolve(result);
+    return Promise.resolve(result);
   }
 
   static async all(): Promise<Array<Pet>> {
@@ -124,10 +124,10 @@ export class Pet extends Entity {
       let response = await request.json();
       let objects = Object.values(response);
 
-      objects.forEach((o) => {
-        let pet = Pet.build(o as PetResponse)
-        result.push(pet)
-      })
+      objects.forEach(o => {
+        let pet = Pet.build(o as PetResponse);
+        result.push(pet);
+      });
     } else {
       return Promise.reject(`${request.statusText} (${request.status})`);
     }
@@ -144,11 +144,12 @@ export class Pet extends Entity {
     let t = SecureStore.getItemAsync(Authentication.TOKEN);
 
     h.set('Authorization', 'Bearer ' + t);
+    h.set('Content-Type', 'application/json');
 
     let request = await fetch(Interface.base_url + endpoint, {
       headers: h,
       method: m,
-      body: JSON.stringify(pet.properties)
+      body: JSON.stringify(pet.properties),
     });
 
     if (request.ok && request.status === 201) {

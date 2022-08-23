@@ -65,7 +65,8 @@ export class User extends Entity {
     this.properties.address = address !== undefined ? address : '';
     this.properties.age = age !== undefined ? age : 0;
     this.properties.gender = gender !== undefined ? gender : '';
-    this.properties.profile_image = profile_image !== undefined ? profile_image : '';
+    this.properties.profile_image =
+      profile_image !== undefined ? profile_image : '';
     this.properties.pets = pets !== undefined ? pets : Array<Pet>();
   }
 
@@ -140,17 +141,18 @@ export class User extends Entity {
     // method and headers
     let m = 'POST';
     let h = new Headers();
-    let t = SecureStore.getItemAsync(Authentication.TOKEN);
+    let t = await SecureStore.getItemAsync(Authentication.TOKEN);
 
     h.set('Authorization', 'Bearer ' + t);
+    h.set('Content-Type', 'application/json');
 
     let request = await fetch(Interface.base_url + endpoint, {
       headers: h,
       method: m,
-      body: JSON.stringify(user.properties)
+      body: JSON.stringify(user.properties),
     });
 
-    console.log(user, request.status, request.ok)
+    console.log(JSON.stringify(user.properties), request.status, request.ok);
 
     if (request.ok && request.status === 201) {
       return Promise.resolve('');
