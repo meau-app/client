@@ -15,13 +15,17 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignContent: "space-between",
   },
-
   margin10: {
     marginTop: 10,
     marginRight: 10,
     marginLeft: 4,
     marginBottom: 10,
+  },
+  registerButton: {
+    marginTop: 25,
+    marginBottom: 25,
   }
+
 });
 
 export default styles;

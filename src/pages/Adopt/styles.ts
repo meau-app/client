@@ -15,6 +15,9 @@ const styles = StyleSheet.create({
   bar: {
     backgroundColor: '#fff'
   },
+  cards: {
+    padding: 10
+  }
 });
 
 export default styles;

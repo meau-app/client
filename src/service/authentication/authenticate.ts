@@ -2,10 +2,10 @@ import * as SecureStore from 'expo-secure-store';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  deleteUser,
 } from 'firebase/auth';
-import { doc, setDoc } from 'firebase/firestore';
 import { User } from '../api/models/user';
-import { auth, firestore } from '../database/firebase';
+import { auth } from '../database/firebase';
 
 module Authentication {
   export const TOKEN = 'user_secure_token';
@@ -60,35 +60,28 @@ module Authentication {
   ): Promise<any> {
     return createUserWithEmailAndPassword(auth, email, password)
       .then(async v => {
-        let token = await v.user?.getIdToken();
-        if (token) {
-          SecureStore.setItemAsync(TOKEN, token);
-        }
+        try {
+          let token = await v.user?.getIdToken();
+          if (token) {
+            SecureStore.setItemAsync(TOKEN, token);
+          }
 
-        setDoc(doc(firestore, 'users', email), {
-          email: v.user?.email,
-          age: user.properties.age,
-          name: user.properties.name,
-          phone: user.properties.phone,
-          username: user.properties.username,
-          city: user.properties.city,
-          state: user.properties.state,
-          address: user.properties.address,
-        })
-          .then(() => {
-            return Promise.resolve('');
-          })
-          .catch(e => {
-            return Promise.reject('Falha ao registrar usuário');
-          });
+          return await User.save(user);
+        } catch (e) {
+          // rollback action
+          deleteUser(v.user);
+          return Promise.reject('Falha ao registrar usuário, ' + e);
+        }
       })
       .catch(error => {
         if (error.code === 'auth/weak-password') {
           return Promise.reject('Sua senha deve ter pelo menos 6 caracteres');
         } else if (error.code === 'auth/invalid-email') {
-          Promise.reject('Email inválido');
+          return Promise.reject('Email inválido');
+        } else if (error.code === 'auth/email-already-exists') {
+          return Promise.reject('Email em uso, tente outro.');
         } else {
-          Promise.reject('Email em uso, tente outro.' + error.code);
+          return Promise.reject(error);
         }
       });
   }
