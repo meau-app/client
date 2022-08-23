@@ -9,6 +9,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { getApps, initializeApp } from 'firebase/app';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import uuid from 'uuid';
+import { Pet } from '../../service/api/models/pet';
 
 const RegisterAnimal: React.FC = () => {
   const navigation = useNavigation();
@@ -35,7 +36,9 @@ const RegisterAnimal: React.FC = () => {
     }
   };
 
-  const register = () => {};
+  const register = () => {
+    Pet.save()
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>

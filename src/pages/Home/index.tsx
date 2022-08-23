@@ -36,7 +36,7 @@ export default function Home({ navigation }) {
           return <Ionicons name={icon} size={size} color={color} />;
         },
         tabBarActiveTintColor: '#365047',
-        tabBarInactiveTintColor: '#BBBBB',
+        tabBarInactiveTintColor: '#bbbbb',
       })}
     >
       <Tab.Screen
