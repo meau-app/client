@@ -2,7 +2,7 @@ import * as SecureStore from 'expo-secure-store';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  deleteUser
+  deleteUser,
 } from 'firebase/auth';
 import { User } from '../api/models/user';
 import { auth } from '../database/firebase';
@@ -61,18 +61,18 @@ module Authentication {
     return createUserWithEmailAndPassword(auth, email, password)
       .then(async v => {
         try {
-          await User.save(user);
-
           let token = await v.user?.getIdToken();
           if (token) {
             SecureStore.setItemAsync(TOKEN, token);
           }
 
+          await User.save(user);
+
           return Promise.resolve(true);
         } catch (e) {
-            // rollback action
-            deleteUser(v.user)
-            return Promise.reject('Falha ao registrar usuário, ' + e)
+          // rollback action
+          deleteUser(v.user);
+          return Promise.reject('Falha ao registrar usuário, ' + e);
         }
       })
       .catch(error => {
