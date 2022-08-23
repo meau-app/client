@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, ScrollView, Image } from 'react-native';
+import { View, StyleSheet, ScrollView, Image, Alert } from 'react-native';
 import { Button, Text, TextInput, RadioButton } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import styles from './styles';
@@ -18,7 +18,8 @@ const RegisterAnimal: React.FC = () => {
   const [temper, setTemper] = useState('');
 
   const [race, setRace] = useState('dog');
-  const [gender, setGender] = useState('male');
+  const [sex, setSex] = useState('male');
+  const [age, setAge] = useState('');
 
   const [image, setImage] = useState('');
 
@@ -38,10 +39,22 @@ const RegisterAnimal: React.FC = () => {
     }
   };
 
-  const register = () => {
+  const register = async () => {
     let p = new Pet();
 
-    Pet.save(p);
+    p.properties.name = name;
+    p.properties.temper = temper;
+    p.properties.race = race;
+    p.properties.sex = sex;
+    p.properties.age = Number(age);
+
+    console.log(p);
+
+    try {
+      await Pet.save(p);
+    } catch (e: any) {
+      Alert.alert(e);
+    }
   };
 
   return (
@@ -72,10 +85,24 @@ const RegisterAnimal: React.FC = () => {
           )}
         </Button>
       </View>
-      <TextInput mode="outlined" placeholder="Nome" />
+      <TextInput
+        mode="outlined"
+        placeholder="Nome"
+        value={name}
+        onChangeText={setName}
+      />
       <TextInput
         mode="outlined"
         placeholder="Informações gerais (temperamento)"
+        value={temper}
+        onChangeText={setTemper}
+      />
+      <TextInput
+        mode="outlined"
+        placeholder="Idade"
+        keyboardType="numeric"
+        value={age}
+        onChangeText={setAge}
       />
 
       <View style={styles.margin10}>
@@ -107,16 +134,16 @@ const RegisterAnimal: React.FC = () => {
             uncheckedColor="black"
             color="black"
             value="male"
-            status={gender === 'male' ? 'checked' : 'unchecked'}
-            onPress={() => setGender('male')}
+            status={sex === 'male' ? 'checked' : 'unchecked'}
+            onPress={() => setSex('male')}
           />
           <Text style={styles.margin10}>Macho</Text>
           <RadioButton
             uncheckedColor="black"
             color="black"
             value="female"
-            status={gender === 'female' ? 'checked' : 'unchecked'}
-            onPress={() => setGender('female')}
+            status={sex === 'female' ? 'checked' : 'unchecked'}
+            onPress={() => setSex('female')}
           />
           <Text style={styles.margin10}>Fêmea</Text>
         </View>
