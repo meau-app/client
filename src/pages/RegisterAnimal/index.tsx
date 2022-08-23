@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, ScrollView, Image } from 'react-native';
 import { Button, Text, TextInput, RadioButton } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
@@ -14,11 +14,13 @@ import { Pet } from '../../service/api/models/pet';
 const RegisterAnimal: React.FC = () => {
   const navigation = useNavigation();
 
-  const [checked, setChecked] = React.useState('first');
-  const [checked2, setChecked2] = React.useState('second');
-  const [checked3, setChecked3] = React.useState('third');
+  const [name, setName] = useState('');
+  const [temper, setTemper] = useState('');
 
-  const [image, setImage] = React.useState('');
+  const [race, setRace] = useState('dog');
+  const [gender, setGender] = useState('male');
+
+  const [image, setImage] = useState('');
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -37,7 +39,9 @@ const RegisterAnimal: React.FC = () => {
   };
 
   const register = () => {
-    Pet.save()
+    let p = new Pet();
+
+    Pet.save(p);
   };
 
   return (
@@ -58,7 +62,7 @@ const RegisterAnimal: React.FC = () => {
       </View>
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Button onPress={pickImage}>
-          {image == null ? (
+          {image.length === 0 ? (
             'Toque para escolher uma foto'
           ) : (
             <Image
@@ -68,8 +72,11 @@ const RegisterAnimal: React.FC = () => {
           )}
         </Button>
       </View>
-      <TextInput mode="outlined" placeholder="Nome do Animal" />
-      <TextInput mode="outlined" placeholder="Sobre o Animal" />
+      <TextInput mode="outlined" placeholder="Nome" />
+      <TextInput
+        mode="outlined"
+        placeholder="Informações gerais (temperamento)"
+      />
 
       <View style={styles.margin10}>
         <Text>Espécie:</Text>
@@ -77,17 +84,17 @@ const RegisterAnimal: React.FC = () => {
           <RadioButton
             uncheckedColor="black"
             color="black"
-            value="first"
-            status={checked === 'first' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('first')}
+            value="dog"
+            status={race === 'dog' ? 'checked' : 'unchecked'}
+            onPress={() => setRace('dog')}
           />
           <Text style={styles.margin10}>Cachorro</Text>
           <RadioButton
             uncheckedColor="black"
             color="black"
-            value="second"
-            status={checked === 'second' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked('second')}
+            value="cat"
+            status={race === 'cat' ? 'checked' : 'unchecked'}
+            onPress={() => setRace('cat')}
           />
           <Text style={styles.margin10}>Gato</Text>
         </View>
@@ -99,50 +106,23 @@ const RegisterAnimal: React.FC = () => {
           <RadioButton
             uncheckedColor="black"
             color="black"
-            value="first"
-            status={checked2 === 'first' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked2('first')}
+            value="male"
+            status={gender === 'male' ? 'checked' : 'unchecked'}
+            onPress={() => setGender('male')}
           />
           <Text style={styles.margin10}>Macho</Text>
           <RadioButton
             uncheckedColor="black"
             color="black"
-            value="second"
-            status={checked2 === 'second' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked2('second')}
+            value="female"
+            status={gender === 'female' ? 'checked' : 'unchecked'}
+            onPress={() => setGender('female')}
           />
           <Text style={styles.margin10}>Fêmea</Text>
         </View>
       </View>
 
       <View style={styles.margin10}>
-        <Text>Porte:</Text>
-        <View style={styles.row}>
-          <RadioButton
-            uncheckedColor="black"
-            color="black"
-            value="first"
-            status={checked3 === 'first' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked3('first')}
-          />
-          <Text style={styles.margin10}>Pequeno</Text>
-          <RadioButton
-            uncheckedColor="black"
-            color="black"
-            value="second"
-            status={checked3 === 'second' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked3('second')}
-          />
-          <Text style={styles.margin10}>Medio</Text>
-          <RadioButton
-            uncheckedColor="black"
-            color="black"
-            value="third"
-            status={checked3 === 'third' ? 'checked' : 'unchecked'}
-            onPress={() => setChecked3('third')}
-          />
-          <Text style={styles.margin10}>Grande</Text>
-        </View>
         <Button
           mode="contained"
           onPress={register}
