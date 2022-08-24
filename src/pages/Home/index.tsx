@@ -7,18 +7,11 @@ import Adopt from '../Adopt';
 import Profile from '../Profile';
 import Notification from '../Notification';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { useNavigation } from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();
 
-export default function Home({ navigation }) {
-  function to(page: string): void {
-    let m = {
-      name: page,
-      key: page,
-    };
-    navigation.navigate(m);
-  }
-
+const Home: React.FC = () => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -36,7 +29,7 @@ export default function Home({ navigation }) {
           return <Ionicons name={icon} size={size} color={color} />;
         },
         tabBarActiveTintColor: '#365047',
-        tabBarInactiveTintColor: '#bbbbb',
+        tabBarInactiveTintColor: '#bbbbbb',
       })}
     >
       <Tab.Screen
@@ -48,4 +41,6 @@ export default function Home({ navigation }) {
       <Tab.Screen name="Perfil" component={Profile} />
     </Tab.Navigator>
   );
-}
+};
+
+export default Home;
