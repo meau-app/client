@@ -3,15 +3,16 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { Card } from "react-native-paper";
 import { Pet } from "../service/api/models/pet";
+import { Notification } from "../service/api/models/notification";
 
 interface NotificationItemProps {
-  item: Pet;
+  item: Notification;
 }
 
 const NotificationItem: React.FC<NotificationItemProps> = (props) => {
   const navigation = useNavigation();
 
-  const { item: pet } = props;
+  const { item: notification } = props;
 
   function to(page: string): void {
     let m = {
@@ -29,8 +30,8 @@ const NotificationItem: React.FC<NotificationItemProps> = (props) => {
       }}
     >
       <Card.Title
-        title={pet.properties.name}
-        subtitle={pet.properties.temper}
+        title={notification.properties.name}
+        subtitle={notification.properties.temper}
       />
       <Card.Cover
         source={{
