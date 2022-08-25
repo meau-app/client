@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useEffect, useState } from 'react';
-import { View, Alert, ScrollView, FlatList } from 'react-native';
+import { View, Alert, ScrollView, FlatList, TouchableOpacity } from 'react-native';
 import {
   Appbar,
   Avatar,
@@ -62,8 +62,15 @@ const Adopt: React.FC<AdoptProps> = props => {
           onScrollToTop={request}
           data={pets}
           keyExtractor={(_, i) => i.toString()}
-          renderItem={({ item }) => <AdoptItem item={item} />}
+          renderItem={({ item }) => (
+          <TouchableOpacity onPress={() => {
+            navigation.navigate('PetInfo',{pet: item.properties
+          });
+          }}>
+            <AdoptItem item={item}  /></TouchableOpacity>
+            )}
           style={styles.cards}
+          
         />
       </View>
     </SafeAreaView>

@@ -17,6 +17,7 @@ const AdoptItem: React.FC<AdoptItemProps> = props => {
     let m = {
       name: page,
       key: page,
+      routes: pet,
     };
     navigation.navigate(m);
   }
@@ -24,9 +25,6 @@ const AdoptItem: React.FC<AdoptItemProps> = props => {
   return (
     <Card
       style={styles.card}
-      onPress={() => {
-        to('');
-      }}
     >
       <Card.Title
         title={pet.properties.name}
