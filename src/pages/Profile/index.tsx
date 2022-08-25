@@ -54,15 +54,23 @@ const Profile: React.FC = () => {
       {state === 0 ? (
         <Text>Carregando...</Text>
       ) : (
-        <View>
-          <Text>Nome {user.properties.name}</Text>
-          <Text>Idade {user.properties.age}</Text>
-          <Text>Endereço {user.properties.address}</Text>
-          <Text>Cidade {user.properties.city}</Text>
-          <Text>Estado {user.properties.state}</Text>
-          <Text>Telefone {user.properties.phone}</Text>
-          <Text>Email {user.properties.email}</Text>
-          <Text>Usuário {user.properties.username}</Text>
+        <View style={styles.marginView}>
+          <Text style={styles.text}>Nome</Text>
+          <Text style={styles.textBd}>{user.properties.name}</Text>
+          <Text style={styles.text}>Idade</Text>
+          <Text style={styles.textBd}>{user.properties.age}</Text>
+          <Text style={styles.text}>Endereço</Text>
+          <Text style={styles.textBd}>{user.properties.address}</Text>
+          <Text style={styles.text}>Cidade</Text>
+          <Text style={styles.textBd}>{user.properties.city}</Text>
+          <Text style={styles.text}>Estado</Text>
+          <Text style={styles.textBd}>{user.properties.state}</Text>
+          <Text style={styles.text}>Telefone</Text>
+          <Text style={styles.textBd}>{user.properties.phone}</Text>
+          <Text style={styles.text}>Email</Text>
+          <Text style={styles.textBd}>{user.properties.email}</Text>
+          <Text style={styles.text}>Usuario</Text>
+          <Text style={styles.textBd}>{user.properties.username}</Text>
         </View>
       )}
       <Button onPress={logout}>Logout</Button>

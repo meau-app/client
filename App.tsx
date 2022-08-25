@@ -8,6 +8,7 @@ import Home from './src/pages/Home';
 import Login from './src/pages/Login';
 import RegisterAnimal from './src/pages/RegisterAnimal';
 import RegisterUser from './src/pages/RegisterUser';
+import PetInfo from './src/pages/PetInfo';
 
 const Stack = createNativeStackNavigator();
 const Theme = {
@@ -52,6 +53,13 @@ export default function App() {
             component={RegisterAnimal}
             options={{
               headerTitle: 'Registrar Pet',
+            }}
+          />
+          <Stack.Screen
+            name="PetInfo"
+            component={PetInfo}
+            options={{
+              headerTitle: 'PetInfo',
             }}
           />
         </Stack.Navigator>
