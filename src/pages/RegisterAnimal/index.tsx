@@ -1,14 +1,11 @@
-import React, { useState } from "react";
-import { View, StyleSheet, ScrollView, Image, Alert } from "react-native";
-import { Button, Text, TextInput, RadioButton } from "react-native-paper";
-import { useNavigation } from "@react-navigation/native";
-import styles from "./styles";
-import { utils } from "@react-native-firebase/app";
-import storage from "@react-native-firebase/storage";
-import * as ImagePicker from "expo-image-picker";
-import { getApps, initializeApp } from "firebase/app";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { Pet } from "../../service/api/models/pet";
+import React, { useState } from 'react';
+import { View, StyleSheet, ScrollView, Image, Alert } from 'react-native';
+import { Button, Text, TextInput, RadioButton } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
+import styles from './styles';
+import * as ImagePicker from 'expo-image-picker';
+import { Pet } from '../../service/api/models/pet';
+
 
 const RegisterAnimal: React.FC = () => {
   const navigation = useNavigation();
@@ -16,25 +13,30 @@ const RegisterAnimal: React.FC = () => {
   const [name, setName] = useState("");
   const [temper, setTemper] = useState("");
 
-  const [race, setRace] = useState("dog");
-  const [sex, setSex] = useState("male");
-  const [age, setAge] = useState("");
+  const [type, setType] = useState('dog');
+  const [race, setRace] = useState('');
+  const [sex, setSex] = useState('male');
+  const [age, setAge] = useState('');
 
   const [image, setImage] = useState("");
 
   const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 2],
-      quality: 1,
-    });
+    try {
+      // No permissions request is necessary for launching the image library
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 2],
+        quality: 1,
+      });
 
-    console.log(result);
+      console.log(result);
 
-    if (!result.cancelled) {
-      setImage(result.uri);
+      if (!result.cancelled) {
+        setImage(result.uri);
+      }
+    } catch (e: any) {
+      Alert.alert('Falha ao selecionar imagem. ' + e);
     }
   };
 
@@ -103,6 +105,12 @@ const RegisterAnimal: React.FC = () => {
         value={age}
         onChangeText={setAge}
       />
+      <TextInput
+        mode="outlined"
+        placeholder="Raça do animal"
+        value={race}
+        onChangeText={setRace}
+      />
 
       <View style={styles.margin10}>
         <Text>Espécie:</Text>
@@ -111,16 +119,16 @@ const RegisterAnimal: React.FC = () => {
             uncheckedColor="black"
             color="black"
             value="dog"
-            status={race === "dog" ? "checked" : "unchecked"}
-            onPress={() => setRace("dog")}
+            status={type === 'dog' ? 'checked' : 'unchecked'}
+            onPress={() => setType('dog')}
           />
           <Text style={styles.margin10}>Cachorro</Text>
           <RadioButton
             uncheckedColor="black"
             color="black"
             value="cat"
-            status={race === "cat" ? "checked" : "unchecked"}
-            onPress={() => setRace("cat")}
+            status={type === 'cat' ? 'checked' : 'unchecked'}
+            onPress={() => setType('cat')}
           />
           <Text style={styles.margin10}>Gato</Text>
         </View>
