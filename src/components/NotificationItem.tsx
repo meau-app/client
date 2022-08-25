@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { StyleSheet } from "react-native";
-import { Card } from "react-native-paper";
+import { Card, Button } from "react-native-paper";
 import { Pet } from "../service/api/models/pet";
 import { Notification } from "../service/api/models/notification";
 
@@ -11,7 +11,21 @@ interface NotificationItemProps {
 
 const NotificationItem: React.FC<NotificationItemProps> = (props) => {
   const navigation = useNavigation();
+  const styles = StyleSheet.create({
+    background: {},
+    card: {},
 
+    buttonAccept: {
+      backgroundColor: "green",
+      width: 30,
+      margin: 6,
+    },
+    buttonReject: {
+      backgroundColor: "red",
+      width: 30,
+      margin: 6,
+    },
+  });
   const { item: notification } = props;
 
   function to(page: string): void {
@@ -33,11 +47,20 @@ const NotificationItem: React.FC<NotificationItemProps> = (props) => {
         title={notification.properties.name}
         subtitle={notification.properties.temper}
       />
-      <Card.Cover
-        source={{
-          uri: "https://picsum.photos/700",
-        }}
-      />
+      <Button
+        style={styles.buttonAccept}
+        mode="contained"
+        onPress={() => to("")}
+      >
+        O
+      </Button>
+      <Button
+        style={styles.buttonReject}
+        mode="contained"
+        onPress={() => to("")}
+      >
+        X
+      </Button>
     </Card>
   );
 };
