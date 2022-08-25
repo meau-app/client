@@ -17,7 +17,6 @@ const AdoptItem: React.FC<AdoptItemProps> = props => {
     let m = {
       name: page,
       key: page,
-      routes: pet,
     };
     navigation.navigate(m);
   }
