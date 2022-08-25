@@ -44,8 +44,8 @@ const NotificationItem: React.FC<NotificationItemProps> = (props) => {
       }}
     >
       <Card.Title
-        title={notification.properties.name}
-        subtitle={notification.properties.temper}
+        title={notification.properties.pet}
+        subtitle={notification.properties.proprietary_email}
       />
       <Button
         style={styles.buttonAccept}
