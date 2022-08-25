@@ -6,18 +6,19 @@ import styles from './styles';
 import * as ImagePicker from 'expo-image-picker';
 import { Pet } from '../../service/api/models/pet';
 
+
 const RegisterAnimal: React.FC = () => {
   const navigation = useNavigation();
 
-  const [name, setName] = useState('');
-  const [temper, setTemper] = useState('');
+  const [name, setName] = useState("");
+  const [temper, setTemper] = useState("");
 
   const [type, setType] = useState('dog');
   const [race, setRace] = useState('');
   const [sex, setSex] = useState('male');
   const [age, setAge] = useState('');
 
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState("");
 
   const pickImage = async () => {
     try {
@@ -73,10 +74,10 @@ const RegisterAnimal: React.FC = () => {
           Ajuda
         </Button>
       </View>
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <Button onPress={pickImage}>
           {image.length === 0 ? (
-            'Toque para escolher uma foto'
+            "Toque para escolher uma foto"
           ) : (
             <Image
               source={{ uri: image }}
@@ -140,16 +141,16 @@ const RegisterAnimal: React.FC = () => {
             uncheckedColor="black"
             color="black"
             value="male"
-            status={sex === 'male' ? 'checked' : 'unchecked'}
-            onPress={() => setSex('male')}
+            status={sex === "male" ? "checked" : "unchecked"}
+            onPress={() => setSex("male")}
           />
           <Text style={styles.margin10}>Macho</Text>
           <RadioButton
             uncheckedColor="black"
             color="black"
             value="female"
-            status={sex === 'female' ? 'checked' : 'unchecked'}
-            onPress={() => setSex('female')}
+            status={sex === "female" ? "checked" : "unchecked"}
+            onPress={() => setSex("female")}
           />
           <Text style={styles.margin10}>Fêmea</Text>
         </View>
