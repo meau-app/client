@@ -1,70 +1,54 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { View, ScrollView, Alert, Image, Route } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Button, Text } from 'react-native-paper';
 
 import { Pet } from '../../service/api/models/pet';
-import AdoptItem from '../../components/AdoptItem';
 
 import styles from './styles';
-import { auth } from '../../service/database/firebase';
-import Authentication from '../../service/authentication/authenticate';
-import { useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+import { Alert, ScrollView, View } from 'react-native';
 
-interface AdoptProps {}
+interface AdoptProps {
+  id: string;
+}
 
-
-export default function PetInfo({ route }) {
-
-  const petName = route.params?.pet.name
-  const petAge =route.params?.pet.age
-  const petId = route.params?.pet.id
-  const petSex = route.params?.pet.Sex
-  const petRace = route.params?.pet.species
-  const petTemper = route.params?.pet.temper
-  const petVaccines = route.params?.pet.vaccines
-
-  const navigation = useNavigation();
-
+const PetInfo: React.FC<AdoptProps> = props => {
   const [state, setState] = useState(0);
   const [pet, setPet] = useState(new Pet());
 
+  const request = useCallback(async () => {
+    const id = props.id;
 
-//  function to(page: string): void {
-//    let m = {
-//      name: page,
-//      key: page,
-//    };
-//    navigation.navigate(m);
-//  }
+    try {
+      let response = await Pet.get(id);
+      setPet(response as Pet);
+      setState(1);
+    } catch (e: any) {
+      Alert.alert(('Falha ao carregar dados, ' + e) as string);
+    }
+  }, []);
 
-//
-//  const request = useCallback(async () => {
-//    const petid =  pet.properties.id;
-//    try {
-//      let response = await Pet.get(petid);
-//      setPet(response as Pet);
-//    } catch (e: any) {
-//      Alert.alert(('Falha ao carregar dados, ' + e) as string);
-//    }
-//  }, []);
-//
-//  useEffect(() => {
-//    request();
-//  }, []);
-//
+  useEffect(() => {
+    request();
+  }, []);
+
   return (
     <ScrollView style={styles.container}>
+      {state === 0 ? (
+        'Carregando...'
+      ) : (
         <View>
-          <Text>FOTO</Text>
-          <Text>Nome {petName}</Text>
-          <Text>Idade {petAge}</Text>
-          <Text>Especie {petId}</Text>
-          <Text>Raça {petRace}</Text>
-          <Text>Sexo {petSex}</Text>
-          <Text>Temperamento {petTemper}</Text>
-          <Text>Vacina {petVaccines}</Text>
+          <Text>Nome {pet.properties.name}</Text>
+          <Text>Idade {pet.properties.age}</Text>
+          <Text>Raça {pet.properties.race}</Text>
+          <Text>Sexo {pet.properties.sex}</Text>
+          <Text>Temperamento {pet.properties.temper}</Text>
+          <Text>Vacina {pet.properties.vaccines}</Text>
+
+          <Button>Adotar</Button>
         </View>
+      )}
     </ScrollView>
   );
 };
 
+export default PetInfo;
