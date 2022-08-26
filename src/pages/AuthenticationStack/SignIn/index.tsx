@@ -7,7 +7,7 @@ import Authentication from '../../../service/authentication/authenticate';
 
 import styles from './styles';
 
-export default function Login() {
+export default function SignIn() {
   const navigation = useNavigation();
 
   function to(page: string): void {

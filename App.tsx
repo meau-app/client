@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 
 import Preload from './src/pages/AuthenticationStack/Preload';
-import Login from './src/pages/AuthenticationStack/Login';
+import SignIn from './src/pages/AuthenticationStack/SignIn';
 import SignUp from './src/pages/AuthenticationStack/SignUp';
 
 import Home from './src/pages/ApplicationStack/Home';
@@ -27,7 +27,7 @@ const Theme = {
 
 type AuthenticationProps = {
     Preload: undefined,
-    Login: undefined,
+    SignIn: undefined,
     SignUp: undefined,
 }
 
@@ -91,8 +91,8 @@ export default function App() {
               options={{ headerShown: false }}
             />
             <AuthenticationStack.Screen
-              name="Login"
-              component={Login}
+              name="SignIn"
+              component={SignIn}
               options={{ headerTitle: 'Entrar' }}
             />
             <AuthenticationStack.Screen
