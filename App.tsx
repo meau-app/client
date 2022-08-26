@@ -3,12 +3,14 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 
-import Preload from './src/pages/Preload';
-import Home from './src/pages/ApplicationStack/Home';
-import Login from './src/pages/Login';
-import AddPet from './src/pages/ApplicationStack/AddPet';
+import Preload from './src/pages/AuthenticationStack/Preload';
+import Login from './src/pages/AuthenticationStack/Login';
 import SignUp from './src/pages/AuthenticationStack/SignUp';
-import PetInfo from './src/pages/PetInfo';
+
+import Home from './src/pages/ApplicationStack/Home';
+import PetInfo from './src/pages/ApplicationStack/PetInfo';
+import AddPet from './src/pages/ApplicationStack/AddPet';
+
 import Authentication from './src/service/authentication/authenticate';
 
 const Theme = {
