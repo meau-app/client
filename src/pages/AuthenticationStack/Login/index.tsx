@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { ScrollView, Alert } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 
-import Authentication from '../../service/authentication/authenticate';
+import Authentication from '../../../service/authentication/authenticate';
 
 import styles from './styles';
 

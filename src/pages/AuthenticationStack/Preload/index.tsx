@@ -37,7 +37,7 @@ export default function Preload() {
         <Button
           style={styles.buttonMargin}
           mode="contained"
-          onPress={() => to('RegisterUser')}
+          onPress={() => to('SignUp')}
         >
           Cadastrar
         </Button>

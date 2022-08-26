@@ -3,7 +3,7 @@ import React from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import Adopt from '../../Adopt';
+import Adopt from '../Adopt';
 import Profile from '../Profile';
 import Notification from '../Notification';
 

@@ -2,11 +2,11 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { View, ScrollView, Alert, Image } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 
-import { User } from '../../service/api/models/user';
+import { User } from '../../../service/api/models/user';
 
 import styles from './styles';
-import { auth } from '../../service/database/firebase';
-import Authentication from '../../service/authentication/authenticate';
+import { auth } from '../../../service/database/firebase';
+import Authentication from '../../../service/authentication/authenticate';
 import { useNavigation } from '@react-navigation/native';
 
 const Profile: React.FC = () => {
