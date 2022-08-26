@@ -72,7 +72,6 @@ export default function App() {
               component={Preload}
               options={{ headerShown: false }}
             />
-
             <Stack.Screen
               name="Login"
               component={Login}

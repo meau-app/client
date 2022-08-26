@@ -1,18 +1,11 @@
-import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { View, Alert, ScrollView, FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import NotificationItem from '../../components/NotificationItem';
 import { Notification } from '../../service/api/models/notification';
-import { Pet } from '../../service/api/models/pet';
 
 import styles from './styles';
 import {
-  Appbar,
-  Avatar,
-  Button,
-  Card,
-  IconButton,
   Text,
 } from 'react-native-paper';
 
