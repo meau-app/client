@@ -1,6 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useEffect, useState } from 'react';
-import { View, Alert, ScrollView, FlatList, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Alert,
+  ScrollView,
+  FlatList,
+  TouchableOpacity,
+} from 'react-native';
 import {
   Appbar,
   Avatar,
@@ -10,9 +16,9 @@ import {
   Text,
 } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import AdoptItem from '../../components/AdoptItem';
+import AdoptItem from '../../../components/AdoptItem';
 
-import { Pet } from '../../service/api/models/pet';
+import { Pet } from '../../../service/api/models/pet';
 
 import styles from './styles';
 
@@ -23,10 +29,11 @@ const Adopt: React.FC<AdoptProps> = props => {
 
   const [pets, setPets] = useState<Array<Pet>>([]);
 
-  function to(page: string): void {
+  function to(page: string, params?: Object): void {
     let m = {
       name: page,
       key: page,
+      params: params,
     };
     navigation.navigate(m);
   }
@@ -63,14 +70,15 @@ const Adopt: React.FC<AdoptProps> = props => {
           data={pets}
           keyExtractor={(_, i) => i.toString()}
           renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => {
-            navigation.navigate('PetInfo',{pet: item.properties
-          });
-          }}>
-            <AdoptItem item={item}  /></TouchableOpacity>
-            )}
+            <TouchableOpacity
+              onPress={() => {
+                to('PetInfo', { pet: item });
+              }}
+            >
+              <AdoptItem item={item} />
+            </TouchableOpacity>
+          )}
           style={styles.cards}
-          
         />
       </View>
     </SafeAreaView>

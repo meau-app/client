@@ -4,7 +4,7 @@ import { Button, Text, TextInput, RadioButton } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import styles from './styles';
 import * as ImagePicker from 'expo-image-picker';
-import { Pet } from '../../service/api/models/pet';
+import { Pet } from '../../../service/api/models/pet';
 
 
 const RegisterAnimal: React.FC = () => {

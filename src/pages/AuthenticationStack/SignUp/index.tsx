@@ -4,8 +4,8 @@ import { Button, TextInput } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import styles from './styles';
 
-import Authentication from '../../service/authentication/authenticate';
-import { User } from '../../service/api/models/user';
+import Authentication from '../../../service/authentication/authenticate';
+import { User } from '../../../service/api/models/user';
 
 const RegisterUser: React.FC = () => {
   const navigation = useNavigation();

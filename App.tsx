@@ -4,10 +4,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 
 import Preload from './src/pages/Preload';
-import Home from './src/pages/Home';
+import Home from './src/pages/ApplicationStack/Home';
 import Login from './src/pages/Login';
-import AddPet from './src/pages/RegisterAnimal';
-import SignUp from './src/pages/RegisterUser';
+import AddPet from './src/pages/ApplicationStack/AddPet';
+import SignUp from './src/pages/AuthenticationStack/SignUp';
 import PetInfo from './src/pages/PetInfo';
 import Authentication from './src/service/authentication/authenticate';
 

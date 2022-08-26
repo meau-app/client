@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Button, Text } from 'react-native-paper';
 
-import { Pet } from '../../service/api/models/pet';
+import { Pet } from '../../../service/api/models/pet';
 
 import styles from './styles';
 import { useNavigation } from '@react-navigation/native';

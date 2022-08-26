@@ -4,7 +4,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { Text, Button } from 'react-native-paper';
 
-import Authentication from '../../service/authentication/authenticate';
+import Authentication from '../../../service/authentication/authenticate';
 
 import styles from './styles';
 
@@ -23,7 +23,7 @@ export default function Preload() {
     .then(() => {
       to('Home');
     })
-    .catch(e => {
+    .catch(() => {
       // ignore
     });
 

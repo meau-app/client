@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { View, Alert, ScrollView, FlatList } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import NotificationItem from '../../components/NotificationItem';
-import { Notification } from '../../service/api/models/notification';
+import NotificationItem from '../../../components/NotificationItem';
+import { Notification } from '../../../service/api/models/notification';
 
 import styles from './styles';
 import {
