@@ -6,12 +6,11 @@ import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import Preload from './src/pages/Preload';
 import Home from './src/pages/Home';
 import Login from './src/pages/Login';
-import RegisterAnimal from './src/pages/RegisterAnimal';
-import RegisterUser from './src/pages/RegisterUser';
+import AddPet from './src/pages/RegisterAnimal';
+import SignUp from './src/pages/RegisterUser';
 import PetInfo from './src/pages/PetInfo';
 import Authentication from './src/service/authentication/authenticate';
 
-const Stack = createNativeStackNavigator();
 const Theme = {
   ...DefaultTheme,
   roundness: 5,
@@ -23,6 +22,23 @@ const Theme = {
     tertiary: '#a1b2c3',
   },
 };
+
+type AuthenticationProps = {
+    Preload: undefined,
+    Login: undefined,
+    SignUp: undefined,
+}
+
+type ApplicationStackProps = {
+    Home: undefined,
+    Adopt: undefined,
+    PetInfo: { id: string },
+    Profile: undefined,
+    AddPet: undefined
+}
+
+const AuthenticationStack = createNativeStackNavigator<AuthenticationProps>();
+const ApplicationStack = createNativeStackNavigator<ApplicationStackProps>();
 
 export default function App() {
   const [signed, setSigned] = useState(false);
@@ -44,45 +60,45 @@ export default function App() {
     <PaperProvider theme={Theme}>
       <NavigationContainer>
         {signed ? (
-          <Stack.Navigator>
-            <Stack.Screen
+          <ApplicationStack.Navigator>
+            <ApplicationStack.Screen
               name="Home"
               component={Home}
               options={{ headerShown: false }}
             />
-            <Stack.Screen
-              name="RegisterAnimal"
-              component={RegisterAnimal}
+            <ApplicationStack.Screen
+              name="AddPet"
+              component={AddPet}
               options={{
                 headerTitle: 'Registrar Pet',
               }}
             />
-            <Stack.Screen
+            <ApplicationStack.Screen
               name="PetInfo"
               component={PetInfo}
               options={{
                 headerTitle: 'PetInfo',
               }}
             />
-          </Stack.Navigator>
+          </ApplicationStack.Navigator>
         ) : (
-          <Stack.Navigator>
-            <Stack.Screen
+          <AuthenticationStack.Navigator>
+            <AuthenticationStack.Screen
               name="Preload"
               component={Preload}
               options={{ headerShown: false }}
             />
-            <Stack.Screen
+            <AuthenticationStack.Screen
               name="Login"
               component={Login}
               options={{ headerTitle: 'Entrar' }}
             />
-            <Stack.Screen
-              name="RegisterUser"
-              component={RegisterUser}
+            <AuthenticationStack.Screen
+              name="SignUp"
+              component={SignUp}
               options={{ headerTitle: 'Registrar Usuário' }}
             />
-          </Stack.Navigator>
+          </AuthenticationStack.Navigator>
         )}
       </NavigationContainer>
     </PaperProvider>
