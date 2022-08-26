@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
   registerButton: {
     marginTop: 25,
     marginBottom: 25,
-  }
-
+  },
+  cards: {},
 });
 
 export default styles;
