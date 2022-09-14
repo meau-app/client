@@ -39,7 +39,7 @@ type ApplicationStackProps = {
   AddPet: undefined;
 };
 
-const AuthContext = React.createContext(Boolean);
+export const AuthContext = React.createContext();
 
 const AuthenticationStack = createNativeStackNavigator<AuthenticationProps>();
 const ApplicationStack = createNativeStackNavigator<ApplicationStackProps>();
@@ -56,13 +56,24 @@ export default function App() {
     }
   }
 
+  const dispatch = (action: string) => {
+    switch (action) {
+      case 'SIGN_IN':
+        setSigned(true);
+        return;
+      case 'SIGN_OUT':
+        setSigned(false);
+        return;
+    }
+  };
+
   useEffect(() => {
     check();
   }, []);
 
   return (
     <PaperProvider theme={Theme}>
-      <AuthContext.Provider value={signed}>
+      <AuthContext.Provider value={dispatch}>
         <NavigationContainer>
           {signed ? (
             <ApplicationStack.Navigator>

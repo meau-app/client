@@ -1,15 +1,17 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { ScrollView, Alert } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 
+import { AuthContext } from '../../../../App';
 import Authentication from '../../../service/authentication/authenticate';
 
 import styles from './styles';
 
 const SignIn: React.FC = () => {
   const navigation = useNavigation();
+  const { dispatch } = useContext(AuthContext);
 
   function to(page: string): void {
     let m = {
@@ -24,8 +26,13 @@ const SignIn: React.FC = () => {
 
   async function login() {
     try {
-      await Authentication.login(email, password);
-      to('Preload')
+      let result = await Authentication.login(email, password);
+      if (result) {
+        dispatch('SIGN_IN');
+        to('Preload');
+      } else {
+        Alert.alert('Falha ao realizar login');
+      }
     } catch (e) {
       Alert.alert('Email ou senha inválidos');
     }

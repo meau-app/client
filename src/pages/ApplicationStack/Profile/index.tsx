@@ -1,17 +1,27 @@
-import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { View, ScrollView, Alert, Image } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 
 import { User } from '../../../service/api/models/user';
 
 import styles from './styles';
+
 import { auth } from '../../../service/database/firebase';
-import Authentication from '../../../service/authentication/authenticate';
 import { useNavigation } from '@react-navigation/native';
+
+import { AuthContext } from '../../../../App';
+
+import Authentication from '../../../service/authentication/authenticate';
 
 const Profile: React.FC = () => {
   const navigation = useNavigation();
-  const context = useContext();
+  const { dispatch } = useContext(AuthContext);
 
   const [state, setState] = useState(0);
   const [user, setUser] = useState(new User());
@@ -27,6 +37,7 @@ const Profile: React.FC = () => {
   async function logout() {
     try {
       await Authentication.logout();
+      dispatch('SIGN_OUT');
     } catch (e) {
       Alert.alert('Falha ao sair, tente novamente');
     }
