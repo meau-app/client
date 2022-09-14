@@ -1,4 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
+import React from 'react';
 import { useState } from 'react';
 import { ScrollView, Alert } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
@@ -7,13 +8,13 @@ import Authentication from '../../../service/authentication/authenticate';
 
 import styles from './styles';
 
-export default function SignIn() {
+const SignIn: React.FC = () => {
   const navigation = useNavigation();
 
   function to(page: string): void {
     let m = {
       name: page,
-      key: '',
+      key: page,
     };
     navigation.navigate(m);
   }
@@ -21,14 +22,13 @@ export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  function login() {
-    Authentication.login(email, password)
-      .then(() => {
-        to('Home');
-      })
-      .catch(() => {
-        Alert.alert('Email ou senha inválidos');
-      });
+  async function login() {
+    try {
+      await Authentication.login(email, password);
+      to('Preload')
+    } catch (e) {
+      Alert.alert('Email ou senha inválidos');
+    }
   }
 
   return (
@@ -52,4 +52,6 @@ export default function SignIn() {
       </Button>
     </ScrollView>
   );
-}
+};
+
+export default SignIn;

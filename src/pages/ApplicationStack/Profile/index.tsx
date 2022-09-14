@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { View, ScrollView, Alert, Image } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 
@@ -11,6 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 
 const Profile: React.FC = () => {
   const navigation = useNavigation();
+  const context = useContext();
 
   const [state, setState] = useState(0);
   const [user, setUser] = useState(new User());
@@ -23,14 +24,12 @@ const Profile: React.FC = () => {
     navigation.navigate(m);
   }
 
-  function logout() {
-    Authentication.logout()
-      .then(v => {
-        to('Preload');
-      })
-      .catch(e => {
-        Alert.alert('Falha ao sair, tente novamente');
-      });
+  async function logout() {
+    try {
+      await Authentication.logout();
+    } catch (e) {
+      Alert.alert('Falha ao sair, tente novamente');
+    }
   }
 
   const request = useCallback(async () => {
