@@ -1,11 +1,11 @@
-import { useNavigation } from '@react-navigation/native';
-import { useState } from 'react';
-import { ScrollView, Alert } from 'react-native';
-import { Button, TextInput } from 'react-native-paper';
+import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
+import { ScrollView, Alert } from "react-native";
+import { Button, TextInput } from "react-native-paper";
 
-import Authentication from '../../../service/authentication/authenticate';
+import Authentication from "../../../service/authentication/authenticate";
 
-import styles from './styles';
+import styles from "./styles";
 
 export default function SignIn() {
   const navigation = useNavigation();
@@ -13,21 +13,21 @@ export default function SignIn() {
   function to(page: string): void {
     let m = {
       name: page,
-      key: '',
+      key: "",
     };
     navigation.navigate(m);
   }
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   function login() {
     Authentication.login(email, password)
       .then(() => {
-        to('Home');
+        to("Preload");
       })
       .catch(() => {
-        Alert.alert('Email ou senha inválidos');
+        Alert.alert("Email ou senha inválidos");
       });
   }
 

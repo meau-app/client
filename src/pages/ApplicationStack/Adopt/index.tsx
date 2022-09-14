@@ -1,12 +1,12 @@
-import { useNavigation } from '@react-navigation/native';
-import React, { useCallback, useEffect, useState } from 'react';
+import { useNavigation } from "@react-navigation/native";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   View,
   Alert,
   ScrollView,
   FlatList,
   TouchableOpacity,
-} from 'react-native';
+} from "react-native";
 import {
   Appbar,
   Avatar,
@@ -14,17 +14,17 @@ import {
   Card,
   IconButton,
   Text,
-} from 'react-native-paper';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import AdoptItem from '../../../components/AdoptItem';
+} from "react-native-paper";
+import { SafeAreaView } from "react-native-safe-area-context";
+import AdoptItem from "../../../components/AdoptItem";
 
-import { Pet } from '../../../service/api/models/pet';
+import { Pet } from "../../../service/api/models/pet";
 
-import styles from './styles';
+import styles from "./styles";
 
 interface AdoptProps {}
 
-const Adopt: React.FC<AdoptProps> = props => {
+const Adopt: React.FC<AdoptProps> = (props) => {
   const navigation = useNavigation();
 
   const [pets, setPets] = useState<Array<Pet>>([]);
@@ -59,7 +59,7 @@ const Adopt: React.FC<AdoptProps> = props => {
           icon="plus"
           style={styles.bar}
           onPress={() => {
-            to('RegisterAnimal');
+            to("RegisterAnimal");
           }}
         />
       </Appbar.Header>
@@ -72,7 +72,7 @@ const Adopt: React.FC<AdoptProps> = props => {
           renderItem={({ item }) => (
             <TouchableOpacity
               onPress={() => {
-                to('PetInfo', { pet: item });
+                to("PetInfo", { pet: item.properties });
               }}
             >
               <AdoptItem item={item} />

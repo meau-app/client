@@ -1,8 +1,8 @@
 import * as SecureStore from 'expo-secure-store';
-import { collection, getDoc, getDocs, query, where } from 'firebase/firestore';
-import { auth, firestore } from '../../database/firebase';
+import { collection, getDoc, getDocs, query, QueryDocumentSnapshot, where, DocumentData } from 'firebase/firestore';
+import { auth, firestore} from '../../database/firebase';
 import { Entity } from './entity';
-
+import { Alert } from "react-native";
 /**
  * NotificationResponse is a representation of response that has been sent by the
  * backend.
@@ -11,6 +11,7 @@ interface NotificationResponse {
   requestor_email: string;
   proprietary_email: string;
   pet_id: string;
+  id: string;
 }
 
 export class Notification extends Entity {
@@ -18,12 +19,14 @@ export class Notification extends Entity {
     requestor_email: '',
     proprietary_email: '',
     pet: '',
+    id: '',
   };
 
   constructor(
     requestor_email?: string,
     proprietary_email?: string,
-    pet?: string
+    pet?: string,
+    id?: string,
   ) {
     super();
 
@@ -32,19 +35,22 @@ export class Notification extends Entity {
     this.properties.proprietary_email =
       proprietary_email !== undefined ? proprietary_email : '';
     this.properties.pet = pet !== undefined ? pet : '';
+    this.properties.id = id !== undefined ? id : '';
   }
 
-  static build(response: NotificationResponse): Notification {
+  static build(response: QueryDocumentSnapshot<DocumentData>): Notification {
     let n = new Notification();
 
-    n.properties.requestor_email = response.requestor_email;
-    n.properties.proprietary_email = response.proprietary_email;
-    n.properties.pet = response.pet_id;
+    n.properties.requestor_email = response.data().requestor_email;
+    n.properties.proprietary_email = response.data().proprietary_email;
+    n.properties.pet = response.data().pet_id;
+    n.properties.id = response.id;
 
     return n;
   }
 
   static async all(): Promise<Array<Notification>> {
+    let result = Array<Notification>();
     const email = auth.currentUser?.email!;
 
     const q = query(
@@ -56,13 +62,21 @@ export class Notification extends Entity {
     try {
       const notifications = await getDocs(q);
 
-      console.log(notifications);
-    } catch (e) {
-      console.error(e);
-    }
+      notifications.forEach((notification) => {
+        
+        let newNotification = Notification.build(notification)
+        
+        result.push(newNotification)
 
-    return Promise.resolve([]);
+      });
+
+      return Promise.resolve(result);
+    }
+   catch(e) {
+      console.error(e);
+      return Promise.resolve([]);
   }
+}
 
   static async save(notification: Notification): Promise<Boolean> {
     return Promise.resolve(true);
