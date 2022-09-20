@@ -49,7 +49,7 @@ const RegisterUser: React.FC = () => {
 
     Authentication.register(user, email, password)
       .then(() => {
-        to('Preload');
+        to('SignIn');
       })
       .catch(e => {
         Alert.alert(e);

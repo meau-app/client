@@ -41,6 +41,8 @@ type ApplicationStackProps = {
   Chats: undefined;
 };
 
+export const AuthContext = React.createContext();
+
 const AuthenticationStack = createNativeStackNavigator<AuthenticationProps>();
 const ApplicationStack = createNativeStackNavigator<ApplicationStackProps>();
 
@@ -56,62 +58,75 @@ export default function App() {
     }
   }
 
+  const dispatch = (action: string) => {
+    switch (action) {
+      case 'SIGN_IN':
+        setSigned(true);
+        return;
+      case 'SIGN_OUT':
+        setSigned(false);
+        return;
+    }
+  };
+
   useEffect(() => {
     check();
   }, []);
 
   return (
     <PaperProvider theme={Theme}>
-      <NavigationContainer>
-        {signed ? (
-          <ApplicationStack.Navigator>
-            <ApplicationStack.Screen
-              name="Home"
-              component={Home}
-              options={{ headerShown: false }}
-            />
-            <ApplicationStack.Screen
-              name="AddPet"
-              component={AddPet}
-              options={{
-                headerTitle: 'Registrar Pet',
-              }}
-            />
-            <ApplicationStack.Screen
-              name="PetInfo"
-              component={PetInfo}
-              options={{
-                headerTitle: 'PetInfo',
-              }}
-            />
-            <ApplicationStack.Screen
-              name="Chats"
-              component={Chats}
-              options={{
-                headerTitle: 'Chats',
-              }}
-            />
-          </ApplicationStack.Navigator>
-        ) : (
-          <AuthenticationStack.Navigator>
-            <AuthenticationStack.Screen
-              name="Preload"
-              component={Preload}
-              options={{ headerShown: false }}
-            />
-            <AuthenticationStack.Screen
-              name="SignIn"
-              component={SignIn}
-              options={{ headerTitle: 'Entrar' }}
-            />
-            <AuthenticationStack.Screen
-              name="SignUp"
-              component={SignUp}
-              options={{ headerTitle: 'Registrar Usuário' }}
-            />
-          </AuthenticationStack.Navigator>
-        )}
-      </NavigationContainer>
+      <AuthContext.Provider value={dispatch}>
+        <NavigationContainer>
+          {signed ? (
+            <ApplicationStack.Navigator>
+              <ApplicationStack.Screen
+                name="Home"
+                component={Home}
+                options={{ headerShown: false }}
+              />
+              <ApplicationStack.Screen
+                name="AddPet"
+                component={AddPet}
+                options={{
+                  headerTitle: 'Registrar Pet',
+                }}
+              />
+              <ApplicationStack.Screen
+                name="PetInfo"
+                component={PetInfo}
+                options={{
+                  headerTitle: 'PetInfo',
+                }}
+              />
+              <ApplicationStack.Screen
+                name="Chats"
+                component={Chats}
+                options={{
+                  headerTitle: 'Chats',
+                }}
+              />
+            </ApplicationStack.Navigator>
+          ) : (
+            <AuthenticationStack.Navigator>
+              <AuthenticationStack.Screen
+                name="Preload"
+                component={Preload}
+                options={{ headerShown: false }}
+              />
+              <AuthenticationStack.Screen
+                name="SignIn"
+                component={SignIn}
+                options={{ headerTitle: 'Entrar' }}
+              />
+              <AuthenticationStack.Screen
+                name="SignUp"
+                component={SignUp}
+                options={{ headerTitle: 'Registrar Usuário' }}
+              />
+            </AuthenticationStack.Navigator>
+          )}
+        </NavigationContainer>
+      </AuthContext.Provider>
     </PaperProvider>
   );
 }

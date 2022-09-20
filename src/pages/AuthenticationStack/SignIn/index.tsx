@@ -1,35 +1,42 @@
-import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
-import { ScrollView, Alert } from "react-native";
-import { Button, TextInput } from "react-native-paper";
+import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { useState, useContext } from 'react';
+import { ScrollView, Alert } from 'react-native';
+import { Button, TextInput } from 'react-native-paper';
 
-import Authentication from "../../../service/authentication/authenticate";
+import { AuthContext } from '../../../../App';
+import Authentication from '../../../service/authentication/authenticate';
 
-import styles from "./styles";
+import styles from './styles';
 
-export default function SignIn() {
+const SignIn: React.FC = () => {
   const navigation = useNavigation();
+  const { dispatch } = useContext(AuthContext);
 
   function to(page: string): void {
     let m = {
       name: page,
-      key: "",
+      key: page,
     };
     navigation.navigate(m);
   }
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  function login() {
-    Alert.alert(email + " -- " + password);
-    Authentication.login(email, password)
-      .then(() => {
-        to("Preload");
-      })
-      .catch((e) => {
-        Alert.alert(e + " Email ou senha inválidos");
-      });
+  async function login() {
+    try {
+      let result = await Authentication.login(email, password);
+      if (result) {
+        dispatch('SIGN_IN');
+        to('Preload');
+      } else {
+        Alert.alert('Falha ao realizar login');
+      }
+    } catch (e) {
+      console.log(e);
+      Alert.alert('Email ou senha inválidos');
+    }
   }
 
   return (
@@ -53,4 +60,6 @@ export default function SignIn() {
       </Button>
     </ScrollView>
   );
-}
+};
+
+export default SignIn;
