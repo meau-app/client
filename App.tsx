@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
+import React, { useEffect, useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 
-import Preload from "./src/pages/AuthenticationStack/Preload";
-import SignIn from "./src/pages/AuthenticationStack/SignIn";
-import SignUp from "./src/pages/AuthenticationStack/SignUp";
+import Preload from './src/pages/AuthenticationStack/Preload';
+import SignIn from './src/pages/AuthenticationStack/SignIn';
+import SignUp from './src/pages/AuthenticationStack/SignUp';
 
-import Home from "./src/pages/ApplicationStack/Home";
-import PetInfo from "./src/pages/ApplicationStack/PetInfo";
-import AddPet from "./src/pages/ApplicationStack/AddPet";
-import Chats from "./src/pages/ApplicationStack/Chats";
+import Home from './src/pages/ApplicationStack/Home';
+import PetInfo from './src/pages/ApplicationStack/PetInfo';
+import AddPet from './src/pages/ApplicationStack/AddPet';
+import Chats from './src/pages/ApplicationStack/Chats';
 
-import Authentication from "./src/service/authentication/authenticate";
+import Authentication from './src/service/authentication/authenticate';
 
 const Theme = {
   ...DefaultTheme,
@@ -20,9 +20,9 @@ const Theme = {
   version: 3,
   colors: {
     ...DefaultTheme.colors,
-    primary: "#365047",
-    secondary: "#f1c40f",
-    tertiary: "#a1b2c3",
+    primary: '#365047',
+    secondary: '#f1c40f',
+    tertiary: '#a1b2c3',
   },
 };
 
@@ -74,21 +74,21 @@ export default function App() {
               name="AddPet"
               component={AddPet}
               options={{
-                headerTitle: "Registrar Pet",
+                headerTitle: 'Registrar Pet',
               }}
             />
             <ApplicationStack.Screen
               name="PetInfo"
               component={PetInfo}
               options={{
-                headerTitle: "PetInfo",
+                headerTitle: 'PetInfo',
               }}
             />
             <ApplicationStack.Screen
               name="Chats"
               component={Chats}
               options={{
-                headerTitle: "Chats",
+                headerTitle: 'Chats',
               }}
             />
           </ApplicationStack.Navigator>
@@ -102,12 +102,12 @@ export default function App() {
             <AuthenticationStack.Screen
               name="SignIn"
               component={SignIn}
-              options={{ headerTitle: "Entrar" }}
+              options={{ headerTitle: 'Entrar' }}
             />
             <AuthenticationStack.Screen
               name="SignUp"
               component={SignUp}
-              options={{ headerTitle: "Registrar Usuário" }}
+              options={{ headerTitle: 'Registrar Usuário' }}
             />
           </AuthenticationStack.Navigator>
         )}
