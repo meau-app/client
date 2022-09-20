@@ -22,12 +22,13 @@ export default function SignIn() {
   const [password, setPassword] = useState("");
 
   function login() {
+    Alert.alert(email + " -- " + password);
     Authentication.login(email, password)
       .then(() => {
         to("Preload");
       })
-      .catch(() => {
-        Alert.alert("Email ou senha inválidos");
+      .catch((e) => {
+        Alert.alert(e + " Email ou senha inválidos");
       });
   }
 

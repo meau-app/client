@@ -2,7 +2,6 @@ import * as SecureStore from 'expo-secure-store';
 import { collection, getDoc, getDocs, query, QueryDocumentSnapshot, where, DocumentData } from 'firebase/firestore';
 import { auth, firestore} from '../../database/firebase';
 import { Entity } from './entity';
-import { Alert } from "react-native";
 /**
  * NotificationResponse is a representation of response that has been sent by the
  * backend.

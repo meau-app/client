@@ -1,12 +1,12 @@
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { useNavigation } from '@react-navigation/native';
-import React from 'react';
-import { View } from 'react-native';
-import { Text, Button } from 'react-native-paper';
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { useNavigation } from "@react-navigation/native";
+import React from "react";
+import { View } from "react-native";
+import { Text, Button } from "react-native-paper";
 
-import Authentication from '../../../service/authentication/authenticate';
+import Authentication from "../../../service/authentication/authenticate";
 
-import styles from './styles';
+import styles from "./styles";
 
 export default function Preload() {
   const navigation = useNavigation();
@@ -21,7 +21,7 @@ export default function Preload() {
 
   Authentication.check()
     .then(() => {
-      to('Home');
+      to("Home");
     })
     .catch(() => {
       // ignore
@@ -31,13 +31,13 @@ export default function Preload() {
     <View style={styles.container}>
       <Text style={styles.title}>MEAU</Text>
       <View style={styles.buttonList}>
-        <Button mode="contained" onPress={() => to('Login')}>
+        <Button mode="contained" onPress={() => to("SignIn")}>
           Login
         </Button>
         <Button
           style={styles.buttonMargin}
           mode="contained"
-          onPress={() => to('SignUp')}
+          onPress={() => to("SignUp")}
         >
           Cadastrar
         </Button>
