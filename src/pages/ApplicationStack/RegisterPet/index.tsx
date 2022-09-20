@@ -7,7 +7,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { Pet } from '../../../service/api/models/pet';
 
 
-const RegisterAnimal: React.FC = () => {
+const RegisterPet: React.FC = () => {
   const navigation = useNavigation();
 
   const [name, setName] = useState("");
@@ -169,4 +169,4 @@ const RegisterAnimal: React.FC = () => {
   );
 };
 
-export default RegisterAnimal;
+export default RegisterPet;

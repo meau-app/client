@@ -9,7 +9,7 @@ import SignUp from './src/pages/AuthenticationStack/SignUp';
 
 import Home from './src/pages/ApplicationStack/Home';
 import PetInfo from './src/pages/ApplicationStack/PetInfo';
-import AddPet from './src/pages/ApplicationStack/AddPet';
+import RegisterPet from './src/pages/ApplicationStack/RegisterPet';
 import Chats from './src/pages/ApplicationStack/Chats';
 
 import Authentication from './src/service/authentication/authenticate';
@@ -25,7 +25,7 @@ type AuthenticationProps = {
     Adopt: undefined;
     PetInfo: { id: string };
     Profile: undefined;
-    AddPet: undefined;
+    RegisterPet: undefined;
     Chats: undefined;
   };
 
@@ -47,8 +47,8 @@ export const Navigation: React.FC = () => {
               options={{ headerShown: false }}
             />
             <ApplicationStack.Screen
-              name="AddPet"
-              component={AddPet}
+              name="RegisterPet"
+              component={RegisterPet}
               options={{
                 headerTitle: 'Registrar Pet',
               }}
@@ -57,7 +57,7 @@ export const Navigation: React.FC = () => {
               name="PetInfo"
               component={PetInfo}
               options={{
-                headerTitle: 'PetInfo',
+                headerTitle: 'Informações do Pet',
               }}
             />
             <ApplicationStack.Screen
