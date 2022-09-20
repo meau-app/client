@@ -1,46 +1,36 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
+    flex: 1,
     margin: 10,
   },
-
-  marginView:{
-    alignItems: 'center'
-  },
-
-  image: {
-    height: 112,
-    width: 112
-  },
-
-  text: {
-    fontSize: 15,
-    color: "#589b9b",
-    alignItems: 'center'
-  },
-
-  textBd: {
-    fontSize: 17,
-    color: "#757575",
-    marginBottom: 20
-  },
-
-  button: {
-    fontSize: 12,
-    color: "#757575",
-    witdh: 148,
-    height: 40
-  },
-
-  marginText:{
-    marginTop: 36
-  },
-  
   buttonMargin: {
-    marginTop: 10
-  }
+    marginTop: 10,
+    marginRight: 10,
+    marginLeft: 4,
+    marginBottom: 10,
+  },
+  row: {
+    flexDirection: "row",
+    alignContent: "space-between",
+  },
+  center: {
+    width: "100%",
+    flexDirection: "row",
+    alignContent: "center",
+  },
+  margin10: {
+    marginTop: 10,
+    marginRight: 10,
+    marginLeft: 4,
+    marginBottom: 10,
+  },
+  registerButton: {
+    marginTop: 25,
+    marginBottom: 25,
+  },
+  cards: {},
 });
 
 export default styles;

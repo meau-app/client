@@ -20,7 +20,7 @@ const Home: React.FC = () => {
             icon = focused ? "bug" : "bug-outline";
           } else if (route.name === "Notificações") {
             icon = focused ? "ios-notifications" : "ios-notifications-outline";
-          } else if (route.name === "Chat") {
+          } else if (route.name === "Chats") {
             icon = focused
               ? "chatbubble-ellipses-outline"
               : "chatbubble-ellipses-outline";
@@ -40,7 +40,7 @@ const Home: React.FC = () => {
         options={{ headerShown: false }}
       />
       <Tab.Screen name="Notificações" component={Notification} />
-      <Tab.Screen name="Chat" component={Chats} />
+      <Tab.Screen name="Chats" component={Chats} />
       <Tab.Screen name="Perfil" component={Profile} />
     </Tab.Navigator>
   );
