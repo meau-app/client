@@ -6,7 +6,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Adopt from "../Adopt";
 import Profile from "../Profile";
 import Notification from "../Notification";
-
+import Chats from "../Chats";
 const Tab = createBottomTabNavigator();
 
 const Home: React.FC = () => {
@@ -40,7 +40,7 @@ const Home: React.FC = () => {
         options={{ headerShown: false }}
       />
       <Tab.Screen name="Notificações" component={Notification} />
-      <Tab.Screen name="Chat" component={Profile} />
+      <Tab.Screen name="Chat" component={Chats} />
       <Tab.Screen name="Perfil" component={Profile} />
     </Tab.Navigator>
   );

@@ -37,7 +37,7 @@ const NotificationView: React.FC<NotificationProps> = (props) => {
             isLoading == false && notifications.length == 0 ? (
               <Text>Você não tem notificações</Text>
             ) : (
-              <Text>Carrregando...</Text>
+              <Text>Carregando...</Text>
             )
           }
           onScrollToTop={request}
