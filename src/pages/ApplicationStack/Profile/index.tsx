@@ -15,7 +15,7 @@ import styles from './styles';
 import { auth } from '../../../service/database/firebase';
 import { useNavigation } from '@react-navigation/native';
 
-import { AuthContext } from '../../../../App';
+import { AuthContext } from '../../../../Context';
 
 import Authentication from '../../../service/authentication/authenticate';
 

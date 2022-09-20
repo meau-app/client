@@ -62,11 +62,8 @@ export class Notification extends Entity {
       const notifications = await getDocs(q);
 
       notifications.forEach((notification) => {
-        
         let newNotification = Notification.build(notification)
-        
         result.push(newNotification)
-
       });
 
       return Promise.resolve(result);

@@ -4,7 +4,7 @@ import { useState, useContext } from 'react';
 import { ScrollView, Alert } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 
-import { AuthContext } from '../../../../App';
+import { AuthContext } from '../../../../Context';
 import Authentication from '../../../service/authentication/authenticate';
 
 import styles from './styles';
@@ -35,7 +35,7 @@ const SignIn: React.FC = () => {
       }
     } catch (e) {
       console.log(e);
-      Alert.alert('Email ou senha inválidos');
+      //Alert.alert('Email ou senha inválidos');
     }
   }
 

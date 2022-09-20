@@ -13,6 +13,7 @@ import AddPet from './src/pages/ApplicationStack/AddPet';
 import Chats from './src/pages/ApplicationStack/Chats';
 
 import Authentication from './src/service/authentication/authenticate';
+import { AuthContext } from './Context';
 
 const Theme = {
   ...DefaultTheme,
@@ -41,7 +42,7 @@ type ApplicationStackProps = {
   Chats: undefined;
 };
 
-export const AuthContext = React.createContext();
+
 
 const AuthenticationStack = createNativeStackNavigator<AuthenticationProps>();
 const ApplicationStack = createNativeStackNavigator<ApplicationStackProps>();
@@ -73,9 +74,11 @@ export default function App() {
     check();
   }, []);
 
+  console.log(signed);
+
   return (
-    <PaperProvider theme={Theme}>
-      <AuthContext.Provider value={dispatch}>
+    <AuthContext.Provider value={dispatch}>
+      <PaperProvider theme={Theme}>
         <NavigationContainer>
           {signed ? (
             <ApplicationStack.Navigator>
@@ -126,7 +129,7 @@ export default function App() {
             </AuthenticationStack.Navigator>
           )}
         </NavigationContainer>
-      </AuthContext.Provider>
-    </PaperProvider>
+      </PaperProvider>
+    </AuthContext.Provider>
   );
 }
