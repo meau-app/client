@@ -4,6 +4,15 @@ import { StyleSheet } from "react-native";
 import { Card, Button } from "react-native-paper";
 import { Pet } from "../service/api/models/pet";
 import { Notification } from "../service/api/models/notification";
+import {
+  doc,
+  deleteDoc,
+  setDoc,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
+} from "firebase/firestore";
+import { auth, firestore } from "../service/database/firebase";
 
 interface NotificationItemProps {
   item: Notification;
@@ -28,21 +37,47 @@ const NotificationItem: React.FC<NotificationItemProps> = (props) => {
   });
   const { item: notification } = props;
 
-  function to(page: string): void {
-    let m = {
-      name: page,
-      key: page,
-    };
-    navigation.navigate(m);
+  async function acceptAdoption(notification: Notification): Promise<void> {
+    await setDoc(doc(firestore, "adoptions", notification.properties.id), {
+      answered: true,
+      pet_id: notification.properties.pet,
+      old_proprietary: notification.properties.proprietary_email,
+      new_proprietary: notification.properties.requestor_email,
+    });
+    await updateDoc(
+      doc(firestore, "users", notification.properties.requestor_email),
+      {
+        Pets: arrayUnion(notification.properties.pet),
+      }
+    );
+    try {
+      await updateDoc(
+        doc(firestore, "users", notification.properties.proprietary_email),
+        {
+          Pets: arrayRemove(notification.properties.pet),
+        }
+      );
+    } catch (e) {}
+    await updateDoc(
+      doc(firestore, "notifications", notification.properties.id),
+      {
+        answered: true,
+      }
+    );
+  }
+
+  async function rejectAdoption(notificationId: string): Promise<void> {
+    //HEHE
+    await updateDoc(
+      doc(firestore, "notifications", notification.properties.id),
+      {
+        answered: true,
+      }
+    );
   }
 
   return (
-    <Card
-      style={styles.card}
-      onPress={() => {
-        to("");
-      }}
-    >
+    <Card style={styles.card}>
       <Card.Title
         title={notification.properties.pet}
         subtitle={notification.properties.proprietary_email}
@@ -50,14 +85,14 @@ const NotificationItem: React.FC<NotificationItemProps> = (props) => {
       <Button
         style={styles.buttonAccept}
         mode="contained"
-        onPress={() => to("")}
+        onPress={async () => await acceptAdoption(notification)}
       >
         O
       </Button>
       <Button
         style={styles.buttonReject}
         mode="contained"
-        onPress={() => to("")}
+        onPress={async () => await rejectAdoption(notification.properties.id)}
       >
         X
       </Button>

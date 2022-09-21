@@ -1,4 +1,5 @@
 import * as SecureStore from 'expo-secure-store';
+import { Alert } from 'react-native';
 
 import Authentication from '../../authentication/authenticate';
 import Interface from '../interface';
@@ -17,6 +18,7 @@ interface PetResponse {
   race: string;
   sex: Sex;
   age: number;
+  id: string;
   vaccines: Array<String>;
   pictures: Array<String>;
 }
@@ -41,6 +43,7 @@ export class Pet extends Entity {
     race?: string,
     sex?: Sex,
     age?: number,
+    id?: string,
     vaccines?: Array<String>,
     pictures?: Array<String>
   ) {
@@ -54,6 +57,7 @@ export class Pet extends Entity {
     this.properties.sex = sex !== undefined ? sex : 'male';
     this.properties.vaccines = vaccines !== undefined ? vaccines : [];
     this.properties.pictures = pictures !== undefined ? pictures : [];
+    this.properties.id = id !== undefined ? id : '';
   }
 
   static build(response: PetResponse): Pet {
@@ -67,6 +71,7 @@ export class Pet extends Entity {
     p.properties.pictures = response.pictures;
     p.properties.vaccines = response.vaccines;
     p.properties.adopted = response.adopted;
+    p.properties.id = response.id;
 
     return p;
   }
@@ -91,10 +96,9 @@ export class Pet extends Entity {
       headers: h,
       method: m,
     });
-
+    
     if (request.ok) {
       let response = await request.json();
-
       result = Pet.build(response as PetResponse);
     } else {
       return Promise.reject(`${request.statusText} (${request.status})`);
@@ -119,12 +123,13 @@ export class Pet extends Entity {
       headers: h,
       method: m,
     });
-
+    
     if (request.ok) {
       let response = await request.json();
       let objects = Object.values(response);
 
       objects.forEach(o => {
+        console.log(o);
         let pet = Pet.build(o as PetResponse);
         result.push(pet);
       });

@@ -1,23 +1,23 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { View, Alert, ScrollView, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import NotificationItem from "../../../components/NotificationItem";
-import { Notification } from "../../../service/api/models/notification";
+import ChatItem from "../../../components/ChatItem";
+import { Chat } from "../../../service/api/models/chat";
 
 import styles from "./styles";
 import { Text } from "react-native-paper";
 
-interface NotificationProps {}
+interface ChatProps {}
 
-const NotificationView: React.FC<NotificationProps> = (props) => {
-  const [notifications, setNotifications] = useState<Array<Notification>>([]);
+const Chats: React.FC<ChatProps> = (props) => {
+  const [chats, setChats] = useState<Array<Chat>>([]);
   const [isLoading, setLoading] = useState<Boolean>(false);
 
   const request = useCallback(async () => {
     setLoading(true);
     try {
-      let response = await Notification.all();
-      setNotifications(response as Array<Notification>);
+      let response = await Chat.all();
+      setChats(response as Array<Chat>);
     } catch (e: any) {
       Alert.alert(e);
     } finally {
@@ -34,16 +34,16 @@ const NotificationView: React.FC<NotificationProps> = (props) => {
       <View>
         <FlatList
           ListEmptyComponent={
-            isLoading == false && notifications.length == 0 ? (
-              <Text>Você não tem notificações</Text>
+            isLoading == false && chats.length == 0 ? (
+              <Text style={styles.center}>Você não tem chats</Text>
             ) : (
               <Text>Carregando...</Text>
             )
           }
           onScrollToTop={request}
-          data={notifications}
+          data={chats}
           keyExtractor={(_, i) => i.toString()}
-          renderItem={({ item }) => <NotificationItem item={item} />}
+          renderItem={({ item }) => <ChatItem item={item} />}
           style={styles.cards}
         />
       </View>
@@ -51,4 +51,4 @@ const NotificationView: React.FC<NotificationProps> = (props) => {
   );
 };
 
-export default NotificationView;
+export default Chats;

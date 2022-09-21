@@ -4,14 +4,14 @@ import { useState, useContext } from 'react';
 import { ScrollView, Alert } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 
-import { AuthContext } from '../../../../App';
+import { useAuth } from '../../../../Context';
 import Authentication from '../../../service/authentication/authenticate';
 
 import styles from './styles';
 
 const SignIn: React.FC = () => {
   const navigation = useNavigation();
-  const { dispatch } = useContext(AuthContext);
+  const { setSigned } = useAuth()
 
   function to(page: string): void {
     let m = {
@@ -28,13 +28,14 @@ const SignIn: React.FC = () => {
     try {
       let result = await Authentication.login(email, password);
       if (result) {
-        dispatch('SIGN_IN');
+        setSigned(true)
         to('Preload');
       } else {
         Alert.alert('Falha ao realizar login');
       }
     } catch (e) {
-      Alert.alert('Email ou senha inválidos');
+      console.log(e);
+      //Alert.alert('Email ou senha inválidos');
     }
   }
 

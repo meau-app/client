@@ -59,7 +59,7 @@ const Adopt: React.FC<AdoptProps> = props => {
           icon="plus"
           style={styles.bar}
           onPress={() => {
-            to('RegisterAnimal');
+            to('RegisterPet');
           }}
         />
       </Appbar.Header>
@@ -72,7 +72,7 @@ const Adopt: React.FC<AdoptProps> = props => {
           renderItem={({ item }) => (
             <TouchableOpacity
               onPress={() => {
-                to('PetInfo', { pet: item });
+                to('PetInfo', { pet: item.properties });
               }}
             >
               <AdoptItem item={item} />

@@ -6,10 +6,9 @@ import {
 } from 'firebase/auth';
 import { User } from '../api/models/user';
 import { auth } from '../database/firebase';
+import AuthenticationTokens from './token';
 
 module Authentication {
-  export const TOKEN = 'user_secure_token';
-
   export async function login(
     email: string,
     password: string
@@ -19,7 +18,7 @@ module Authentication {
         const email = credentials.user?.email;
         const token = await credentials.user?.getIdToken(true);
         if (token && email) {
-          SecureStore.setItemAsync(TOKEN, token);
+          SecureStore.setItemAsync(AuthenticationTokens.USER_TOKEN, token);
           return true;
         } else {
           // failed to retrieve the token for some unknown reason (?)
@@ -37,7 +36,7 @@ module Authentication {
 
   export async function logout(): Promise<boolean> {
     try {
-      await SecureStore.setItemAsync(TOKEN, '');
+      await SecureStore.setItemAsync(AuthenticationTokens.USER_TOKEN, '');
       return Promise.resolve(true);
     } catch (e) {
       return Promise.reject(false);
@@ -45,7 +44,7 @@ module Authentication {
   }
 
   export async function check(): Promise<boolean> {
-    let token = await SecureStore.getItemAsync(TOKEN);
+    let token = await SecureStore.getItemAsync(AuthenticationTokens.USER_TOKEN);
     if (token === undefined || token === null || token === '') {
       return Promise.reject(false);
     }
@@ -63,7 +62,7 @@ module Authentication {
         try {
           let token = await v.user?.getIdToken();
           if (token) {
-            SecureStore.setItemAsync(TOKEN, token);
+            SecureStore.setItemAsync(AuthenticationTokens.USER_TOKEN, token);
           }
 
           return await User.save(user);

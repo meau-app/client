@@ -1,7 +1,10 @@
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { View } from 'react-native';
 import { Text, Button } from 'react-native-paper';
+
+import Authentication from '../../../service/authentication/authenticate';
 
 import styles from './styles';
 
@@ -15,6 +18,14 @@ export default function Preload() {
     };
     navigation.navigate(m);
   }
+
+  //Authentication.check()
+  //  .then(() => {
+  //    to('Home');
+  //  })
+  //  .catch(() => {
+  //    // ignore
+  //  });
 
   return (
     <View style={styles.container}>

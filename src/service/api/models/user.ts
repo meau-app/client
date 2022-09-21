@@ -1,5 +1,6 @@
 import * as SecureStore from 'expo-secure-store';
-import Authentication from '../../authentication/authenticate';
+import AuthenticationTokens from '../../authentication/token';
+// import Authentication from '../../authentication/authenticate';
 
 import Interface from '../interface';
 import { Entity } from './entity';
@@ -103,7 +104,7 @@ export class User extends Entity {
     // method and headers
     let m = 'GET';
     let h = new Headers();
-    let t = SecureStore.getItemAsync(Authentication.TOKEN);
+    let t = SecureStore.getItemAsync('');
 
     h.set('Authorization', 'Bearer ' + t);
 
@@ -141,7 +142,7 @@ export class User extends Entity {
     // method and headers
     let m = 'POST';
     let h = new Headers();
-    let t = await SecureStore.getItemAsync(Authentication.TOKEN);
+    let t = await SecureStore.getItemAsync(AuthenticationTokens.USER_TOKEN);
 
     h.set('Authorization', 'Bearer ' + t);
     h.set('Content-Type', 'application/json');

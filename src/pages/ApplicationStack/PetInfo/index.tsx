@@ -1,17 +1,17 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { Button, Text } from 'react-native-paper';
+import React, { useCallback, useEffect, useState } from "react";
+import { Button, Text } from "react-native-paper";
 
-import { Pet } from '../../../service/api/models/pet';
+import { Pet } from "../../../service/api/models/pet";
 
-import styles from './styles';
-import { useNavigation } from '@react-navigation/native';
-import { Alert, ScrollView, View } from 'react-native';
+import styles from "./styles";
+import { useNavigation } from "@react-navigation/native";
+import { Alert, ScrollView, View } from "react-native";
 
 interface AdoptProps {
   id: string;
 }
 
-const PetInfo: React.FC<AdoptProps> = props => {
+const PetInfo: React.FC<AdoptProps> = (props) => {
   const [state, setState] = useState(0);
   const [pet, setPet] = useState(new Pet());
 
@@ -20,10 +20,11 @@ const PetInfo: React.FC<AdoptProps> = props => {
 
     try {
       let response = await Pet.get(id);
+
       setPet(response as Pet);
       setState(1);
     } catch (e: any) {
-      Alert.alert(('Falha ao carregar dados, ' + e) as string);
+      Alert.alert(("Falha ao carregar dados, " + e + id) as string);
     }
   }, []);
 
@@ -34,7 +35,7 @@ const PetInfo: React.FC<AdoptProps> = props => {
   return (
     <ScrollView style={styles.container}>
       {state === 0 ? (
-        'Carregando...'
+        <Text>Carregando...</Text>
       ) : (
         <View>
           <Text>Nome {pet.properties.name}</Text>

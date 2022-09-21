@@ -15,13 +15,13 @@ import styles from './styles';
 import { auth } from '../../../service/database/firebase';
 import { useNavigation } from '@react-navigation/native';
 
-import { AuthContext } from '../../../../App';
+import { useAuth } from '../../../../Context';
 
 import Authentication from '../../../service/authentication/authenticate';
 
 const Profile: React.FC = () => {
   const navigation = useNavigation();
-  const { dispatch } = useContext(AuthContext);
+  const { setSigned } = useAuth();
 
   const [state, setState] = useState(0);
   const [user, setUser] = useState(new User());
@@ -37,7 +37,7 @@ const Profile: React.FC = () => {
   async function logout() {
     try {
       await Authentication.logout();
-      dispatch('SIGN_OUT');
+      setSigned(false);
     } catch (e) {
       Alert.alert('Falha ao sair, tente novamente');
     }
