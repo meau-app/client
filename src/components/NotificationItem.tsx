@@ -58,14 +58,22 @@ const NotificationItem: React.FC<NotificationItemProps> = (props) => {
         }
       );
     } catch (e) {}
-    await deleteDoc(
-      doc(firestore, "notifications", notification.properties.id)
+    await updateDoc(
+      doc(firestore, "notifications", notification.properties.id),
+      {
+        answered: true,
+      }
     );
   }
 
   async function rejectAdoption(notificationId: string): Promise<void> {
     //HEHE
-    await deleteDoc(doc(firestore, "notifications", notificationId));
+    await updateDoc(
+      doc(firestore, "notifications", notification.properties.id),
+      {
+        answered: true,
+      }
+    );
   }
 
   return (

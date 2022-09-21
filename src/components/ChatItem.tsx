@@ -20,25 +20,35 @@ interface ChatItemProps {
 
 const ChatItem: React.FC<ChatItemProps> = (props) => {
   const navigation = useNavigation();
+
+  function to(page: string): void {
+    let m = {
+      name: page,
+      key: page,
+    };
+    navigation.navigate(m);
+  }
+
   const styles = StyleSheet.create({
     background: {},
     card: {},
 
     buttonAccept: {
       backgroundColor: "green",
-      width: 30,
-      margin: 6,
+      width: "90%",
+      alignSelf: "center",
     },
     buttonReject: {
       backgroundColor: "red",
-      width: 30,
+      width: "90%",
+      alignSelf: "center",
       margin: 6,
     },
   });
   const { item: notification } = props;
 
   async function openChat(notification: Chat): Promise<void> {
-    //Go to chat
+    to("Chat");
   }
 
   async function cancelChat(notificationId: string): Promise<void> {
@@ -56,14 +66,14 @@ const ChatItem: React.FC<ChatItemProps> = (props) => {
         mode="contained"
         onPress={async () => await openChat(notification)}
       >
-        O
+        Abrir
       </Button>
       <Button
         style={styles.buttonReject}
         mode="contained"
         onPress={async () => await cancelChat(notification.properties.id)}
       >
-        X
+        Excluir
       </Button>
     </Card>
   );
