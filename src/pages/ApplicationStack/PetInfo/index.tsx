@@ -1,11 +1,10 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Button, Text } from "react-native-paper";
+import { Alert, ScrollView, View } from "react-native";
 
 import { Pet } from "../../../service/api/models/pet";
 
 import styles from "./styles";
-import { useNavigation } from "@react-navigation/native";
-import { Alert, ScrollView, View } from "react-native";
 
 interface AdoptProps {
   id: string;
@@ -15,8 +14,9 @@ const PetInfo: React.FC<AdoptProps> = (props) => {
   const [state, setState] = useState(0);
   const [pet, setPet] = useState(new Pet());
 
-  const request = useCallback(async () => {
-    const id = props.id;
+  const request = async () => {
+    const id = props.route.params.id;
+
     try {
       let response = await Pet.get(id);
 
@@ -25,11 +25,11 @@ const PetInfo: React.FC<AdoptProps> = (props) => {
     } catch (e: any) {
       Alert.alert(("Falha ao carregar dados, " + e + id) as string);
     }
-  }, []);
+  };
 
   useEffect(() => {
     request();
-  }, []);
+  }, [props]);
 
   return (
     <ScrollView style={styles.container}>
