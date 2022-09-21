@@ -37,8 +37,6 @@ const ApplicationStack = createNativeStackNavigator<ApplicationStackProps>();
 export const Navigation: React.FC = () => {
   const signed = useAuth()?.signed;
 
-  console.log(signed);
-
   return (
     <NavigationContainer>
       {signed ? (

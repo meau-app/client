@@ -17,7 +17,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     }
   }
 
-  useEffect(initialize, []);
+  useEffect(() => {initialize()}, []);
 
   return (
     <AuthContext.Provider value={{ signed, setSigned }}>
