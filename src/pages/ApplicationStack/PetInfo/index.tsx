@@ -17,7 +17,6 @@ const PetInfo: React.FC<AdoptProps> = (props) => {
 
   const request = useCallback(async () => {
     const id = props.id;
-
     try {
       let response = await Pet.get(id);
 

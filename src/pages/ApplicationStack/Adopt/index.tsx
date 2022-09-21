@@ -72,7 +72,7 @@ const Adopt: React.FC<AdoptProps> = props => {
           renderItem={({ item }) => (
             <TouchableOpacity
               onPress={() => {
-                to('PetInfo', { pet: item.properties });
+                to('PetInfo', { id: item.properties.id });
               }}
             >
               <AdoptItem item={item} />

@@ -1,7 +1,7 @@
 import * as SecureStore from 'expo-secure-store';
 import { Alert } from 'react-native';
 
-import Authentication from '../../authentication/authenticate';
+import AuthenticationTokens from '../../authentication/token';
 import Interface from '../interface';
 import { Entity } from './entity';
 
@@ -88,7 +88,7 @@ export class Pet extends Entity {
     // method and headers
     let m = 'GET';
     let h = new Headers();
-    let t = SecureStore.getItemAsync(Authentication.TOKEN);
+    let t = SecureStore.getItemAsync(AuthenticationTokens.TOKEN);
 
     h.set('Authorization', 'Bearer ' + t);
 
@@ -96,7 +96,7 @@ export class Pet extends Entity {
       headers: h,
       method: m,
     });
-    
+
     if (request.ok) {
       let response = await request.json();
       result = Pet.build(response as PetResponse);
@@ -115,7 +115,7 @@ export class Pet extends Entity {
     // method and headers
     let m = 'GET';
     let h = new Headers();
-    let t = SecureStore.getItemAsync(Authentication.TOKEN);
+    let t = SecureStore.getItemAsync(AuthenticationTokens.TOKEN);
 
     h.set('Authorization', 'Bearer ' + t);
 
@@ -123,13 +123,12 @@ export class Pet extends Entity {
       headers: h,
       method: m,
     });
-    
+
     if (request.ok) {
       let response = await request.json();
       let objects = Object.values(response);
 
       objects.forEach(o => {
-        console.log(o);
         let pet = Pet.build(o as PetResponse);
         result.push(pet);
       });
@@ -146,7 +145,7 @@ export class Pet extends Entity {
     // method and headers
     let m = 'POST';
     let h = new Headers();
-    let t = SecureStore.getItemAsync(Authentication.TOKEN);
+    let t = SecureStore.getItemAsync(AuthenticationTokens.TOKEN);
 
     h.set('Authorization', 'Bearer ' + t);
     h.set('Content-Type', 'application/json');
